@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MyTunesDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="MP3">
+          <Key>
+            <PropertyRef Name="MP3ID" />
+          </Key>
+          <Property Name="MP3ID" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" />
+          <Property Name="Artist" Type="nvarchar" MaxLength="50" />
+          <Property Name="Album" Type="nvarchar" MaxLength="50" />
+          <Property Name="Year" Type="smallint" />
+        </EntityType>
+        <EntityType Name="MP3Playlist">
+          <Key>
+            <PropertyRef Name="MP3ID" />
+            <PropertyRef Name="PlaylistID" />
+          </Key>
+          <Property Name="MP3ID" Type="int" Nullable="false" />
+          <Property Name="PlaylistID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Playlist">
+          <Key>
+            <PropertyRef Name="PlaylistID" />
+          </Key>
+          <Property Name="PlaylistID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_MP3Playlist_MP3">
+          <End Role="MP3" Type="Self.MP3" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="MP3Playlist" Type="Self.MP3Playlist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MP3">
+              <PropertyRef Name="MP3ID" />
+            </Principal>
+            <Dependent Role="MP3Playlist">
+              <PropertyRef Name="MP3ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MP3Playlist_Playlist">
+          <End Role="Playlist" Type="Self.Playlist" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="MP3Playlist" Type="Self.MP3Playlist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Playlist">
+              <PropertyRef Name="PlaylistID" />
+            </Principal>
+            <Dependent Role="MP3Playlist">
+              <PropertyRef Name="PlaylistID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MyTunesDbModelStoreContainer">
+          <EntitySet Name="MP3" EntityType="Self.MP3" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MP3Playlist" EntityType="Self.MP3Playlist" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Playlist" EntityType="Self.Playlist" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_MP3Playlist_MP3" Association="Self.FK_MP3Playlist_MP3">
+            <End Role="MP3" EntitySet="MP3" />
+            <End Role="MP3Playlist" EntitySet="MP3Playlist" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MP3Playlist_Playlist" Association="Self.FK_MP3Playlist_Playlist">
+            <End Role="Playlist" EntitySet="Playlist" />
+            <End Role="MP3Playlist" EntitySet="MP3Playlist" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MyTunesDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="MP3">
+          <Key>
+            <PropertyRef Name="MP3ID" />
+          </Key>
+          <Property Name="MP3ID" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Artist" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Album" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Year" Type="Int16" />
+          <NavigationProperty Name="Playlist" Relationship="Self.MP3Playlist" FromRole="MP3" ToRole="Playlist" />
+        </EntityType>
+        <EntityType Name="Playlist">
+          <Key>
+            <PropertyRef Name="PlaylistID" />
+          </Key>
+          <Property Name="PlaylistID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="MP3" Relationship="Self.MP3Playlist" FromRole="Playlist" ToRole="MP3" />
+        </EntityType>
+        <Association Name="MP3Playlist">
+          <End Role="MP3" Type="Self.MP3" Multiplicity="*" />
+          <End Role="Playlist" Type="Self.Playlist" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="MyTunesEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="MP3" EntityType="Self.MP3" />
+          <EntitySet Name="Playlist" EntityType="Self.Playlist" />
+          <AssociationSet Name="MP3Playlist" Association="Self.MP3Playlist">
+            <End Role="MP3" EntitySet="MP3" />
+            <End Role="Playlist" EntitySet="Playlist" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MyTunesDbModelStoreContainer" CdmEntityContainer="MyTunesEntities">
+          <EntitySetMapping Name="MP3">
+            <EntityTypeMapping TypeName="MyTunesDbModel.MP3">
+              <MappingFragment StoreEntitySet="MP3">
+                <ScalarProperty Name="MP3ID" ColumnName="MP3ID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Artist" ColumnName="Artist" />
+                <ScalarProperty Name="Album" ColumnName="Album" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Playlist">
+            <EntityTypeMapping TypeName="MyTunesDbModel.Playlist">
+              <MappingFragment StoreEntitySet="Playlist">
+                <ScalarProperty Name="PlaylistID" ColumnName="PlaylistID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="MP3Playlist" TypeName="MyTunesDbModel.MP3Playlist" StoreEntitySet="MP3Playlist">
+            <EndProperty Name="MP3">
+              <ScalarProperty Name="MP3ID" ColumnName="MP3ID" />
+            </EndProperty>
+            <EndProperty Name="Playlist">
+              <ScalarProperty Name="PlaylistID" ColumnName="PlaylistID" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

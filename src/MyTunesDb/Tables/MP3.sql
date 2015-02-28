@@ -1,0 +1,11 @@
+﻿CREATE TABLE [dbo].[MP3](
+	[MP3ID] [int] NOT NULL,
+	[Title] [nvarchar](50) NULL,
+	[Artist] [nvarchar](50) NULL,
+	[Album] [nvarchar](50) NULL,
+	[Year] [smallint] NULL,
+ CONSTRAINT [PK_MP3] PRIMARY KEY CLUSTERED 
+(
+	[MP3ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
