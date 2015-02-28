@@ -1,4 +1,13 @@
-﻿using System;
+﻿///////////////////////////////////////////////////////////////////////////////////
+//
+// Project: MyTunes
+//
+// Author: Darko Supe
+// Creation Date: 27.02.2015
+//
+///////////////////////////////////////////////////////////////////////////////////
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,8 +19,9 @@ using MyTunes.Data.Repositories;
 
 namespace MyTunes.Data.UnitOfWork
 {
-    public class UnitOfWork : IDisposable
+    public class UnitOfWork : IUnitOfWork
     {
+        //TODO: Transactions
         private MyTunesEntities entities = new MyTunesEntities();
         private GenericRepository<MP3> mp3Repository;
         private GenericRepository<Playlist> playlistRepository;
@@ -27,7 +37,6 @@ namespace MyTunes.Data.UnitOfWork
                 return mp3Repository;
             }
         }
-
         public GenericRepository<Playlist> PlaylistRepository
         {
             get
@@ -40,13 +49,19 @@ namespace MyTunes.Data.UnitOfWork
             }
         }
         
-        public void Save()
+        public void Commit()
         {
             entities.SaveChanges();
         }
 
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
         private bool disposed = false;
-        protected virtual void Dispose(bool disposing)
+        protected void Dispose(bool disposing)
         {
             if (!this.disposed)
             {
@@ -58,9 +73,5 @@ namespace MyTunes.Data.UnitOfWork
             this.disposed = true;
         }
 
-        public void Dispose()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

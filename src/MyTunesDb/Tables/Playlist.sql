@@ -1,6 +1,6 @@
 ﻿
 CREATE TABLE [dbo].[Playlist](
-	[PlaylistID] [int] NOT NULL,
+	[PlaylistID] [int] NOT NULL IDENTITY(1,1),
 	[Name] [nvarchar](50) NULL,
  CONSTRAINT [PK_Playlist] PRIMARY KEY CLUSTERED 
 (

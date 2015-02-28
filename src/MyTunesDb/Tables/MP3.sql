@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[MP3](
-	[MP3ID] [int] NOT NULL,
+	[MP3ID] [int] NOT NULL IDENTITY(1,1),
 	[Title] [nvarchar](50) NULL,
 	[Artist] [nvarchar](50) NULL,
 	[Album] [nvarchar](50) NULL,
