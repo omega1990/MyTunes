@@ -40,8 +40,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MP3Service.cs" />
+    <Compile Include="PlaylistService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceContracts\IMP3Service.cs" />
+    <Compile Include="ServiceContracts\IPlaylistService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MyTunes.Data\MyTunes.Data.csproj">

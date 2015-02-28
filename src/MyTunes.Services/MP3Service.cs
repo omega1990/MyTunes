@@ -27,9 +27,9 @@ namespace MyTunes.Services
             return _repository.GetAll();
         }
 
-        public MP3 Get(Func<MP3, bool> predicate)
+        public MP3 Get(int id)
         {
-            return _repository.Get(predicate); 
+            return _repository.Get(x => x.MP3ID.Equals(id)); 
         }
 
         public void Create(MP3 entity)

@@ -8,6 +8,7 @@ using System.Data.Entity;
 
 using MyTunes.Data.EntityModel;
 using MyTunes.Web.Api.ViewModels;
+using MyTunes.Web.Api.Bootstrap;
 
 namespace MyTunes.Web.Api
 {
@@ -17,8 +18,7 @@ namespace MyTunes.Web.Api
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
 
-            AutoMapper.Mapper.CreateMap<MP3, MP3ViewModel>();
-            AutoMapper.Mapper.CreateMap<MP3ViewModel, MP3>();
+            AutoMapperBootstrapper.Bootstrap();
         }
     }
 }

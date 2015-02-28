@@ -52,6 +52,7 @@ namespace MyTunes.Web.Api.App_Start
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
                 kernel.Bind<IRepository<MP3>>().To<GenericRepository<MP3>>();
+                kernel.Bind<IRepository<Playlist>>().To<GenericRepository<Playlist>>();
                 kernel.Bind<IUnitOfWork>().To<UnitOfWork>();
 
                 RegisterServices(kernel);
@@ -72,6 +73,7 @@ namespace MyTunes.Web.Api.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<IMP3Service>().To<MP3Service>();
+            kernel.Bind<IPlaylistService>().To<PlaylistService>();
         }        
     }
 }

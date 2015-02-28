@@ -7,6 +7,9 @@
 //
 ///////////////////////////////////////////////////////////////////////////////////
 
+using MyTunes.Data.EntityModel;
+using MyTunes.Services.ServiceContracts;
+using MyTunes.Web.Api.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,34 +17,28 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-using MyTunes.Data.UnitOfWork;
-using MyTunes.Web.Api.ViewModels;
-using MyTunes.Data.EntityModel;
-using MyTunes.Services.ServiceContracts;
-
 namespace MyTunes.Web.Api.Controllers
 {
-    public class MP3Controller : ApiController
+    public class PlaylistController : ApiController
     {
-        private IMP3Service _mp3service;
+        private IPlaylistService _playlistService;
 
-        public MP3Controller(IMP3Service mp3service)
+        public PlaylistController(IPlaylistService playlistService)
         {
-            _mp3service = mp3service;
+            _playlistService = playlistService;
         }
 
         // GET api/<controller>
-        public IList<MP3ViewModel> Get()
+        public IList<PlaylistViewModel> Get()
         {
-            var MP3s = _mp3service.GetAll();
-            return AutoMapper.Mapper.Map<IList<MP3>, IList<MP3ViewModel>>(MP3s);
+            var playlists = _playlistService.GetAll();
+            return AutoMapper.Mapper.Map<IList<Playlist>, IList<PlaylistViewModel>>(playlists);
         }
 
         // GET api/<controller>/5
-        public MP3ViewModel Get(int id)
+        public string Get(int id)
         {
-            var mp3ToReturn = _mp3service.Get(id);
-            return AutoMapper.Mapper.Map<MP3, MP3ViewModel>(mp3ToReturn);
+            return "value";
         }
 
         // POST api/<controller>

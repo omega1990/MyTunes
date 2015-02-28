@@ -120,7 +120,9 @@
   <ItemGroup>
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Bootstrap\AutoMapperBootstrapper.cs" />
     <Compile Include="Controllers\MP3Controller.cs" />
+    <Compile Include="Controllers\PlaylistController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
