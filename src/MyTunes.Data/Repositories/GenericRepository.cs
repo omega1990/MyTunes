@@ -51,13 +51,10 @@ namespace MyTunes.Data.Repositories
             entities.Entry(entity).State = EntityState.Modified;
         }
 
-        public void Delete(T entity)
+        public void Delete(int id)
         {
-            if(entities.Entry(entity).State == EntityState.Detached)
-            {
-                dbSet.Attach(entity);
-            }
-            dbSet.Remove(entity);
+            var entityToRemove = dbSet.Find(id);
+            dbSet.Remove(entityToRemove);
         }
 
         public void Save()

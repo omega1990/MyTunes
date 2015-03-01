@@ -21,7 +21,7 @@ namespace MyTunes.Data.Repositories
         T Get(Func<T, bool> predicate);
         void Create(T entity);
         void Update(T entity);
-        void Delete(T entity);
+        void Delete(int id);
         void Save();
     }
 }
