@@ -16,10 +16,10 @@ namespace MyTunes.Services
         private readonly IRepository<MP3> _repository;
         private readonly IUnitOfWork _uow;
 
-        public MP3Service(IRepository<MP3> repository, IUnitOfWork uow)
+        public MP3Service(IUnitOfWork uow)
         {
-            _repository = repository;
             _uow = uow;
+            _repository = uow.Mp3Repository;
         }
 
         public IList<Data.EntityModel.MP3> GetAll()
@@ -42,9 +42,10 @@ namespace MyTunes.Services
             _repository.Update(entity);
         }
 
-        public void Delete(MP3 entity)
+        public void Delete(int id)
         {
-            _repository.Delete(entity);
+            _repository.Delete(id);
+            Save();
         }
 
         public void Save()

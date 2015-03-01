@@ -21002,7 +21002,9 @@ var ngCloakDirective = ngDirective({
  * also be the name of a globally accessible constructor function (not recommended).
  *
  * @example
- * Here is a simple form for editing user contact information. Adding, removing, clearing, and
+ * Here is a simple form for editing user 
+
+ information. Adding, removing, clearing, and
  * greeting are methods declared on the controller (see source tab). These methods can
  * easily be called from the angular markup. Any changes to the data are automatically reflected
  * in the View without the need for a manual update.

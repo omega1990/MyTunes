@@ -9,7 +9,7 @@
             <td class="col-md-11">{{playlist.Name}}</td>
             <td class="col-md-1">
                 <button class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span></button>
-                <button class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button>
+                <button class="btn btn-danger" ng-click="deletePlaylist(playlist.PlaylistID)"><span class="glyphicon glyphicon-remove"></span></button>
             </td>
     </tbody>
 </table>

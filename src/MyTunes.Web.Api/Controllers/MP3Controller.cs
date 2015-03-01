@@ -45,18 +45,23 @@ namespace MyTunes.Web.Api.Controllers
         }
 
         // POST api/<controller>
-        public void Post([FromBody]string value)
+        public void Post([FromBody]MP3ViewModel mp3)
         {
+            var mp3ToCreate = AutoMapper.Mapper.Map<MP3ViewModel, MP3>(mp3);
+            _mp3service.Create(mp3ToCreate);
         }
 
         // PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
+        public void Put([FromBody]MP3ViewModel mp3)
         {
+            var mp3ToUpdate = AutoMapper.Mapper.Map<MP3ViewModel, MP3>(mp3);
+            _mp3service.Update(mp3ToUpdate);
         }
 
         // DELETE api/<controller>/5
         public void Delete(int id)
         {
+            _mp3service.Delete(id);
         }
     }
 }

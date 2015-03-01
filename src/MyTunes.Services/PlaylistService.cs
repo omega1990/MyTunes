@@ -16,10 +16,10 @@ namespace MyTunes.Services
         private readonly IRepository<Playlist> _repository;
         private readonly IUnitOfWork _uow;
 
-        public PlaylistService(IRepository<Playlist> repository, IUnitOfWork uow)
+        public PlaylistService(IUnitOfWork uow)
         {
-            _repository = repository;
             _uow = uow;
+            _repository = uow.PlaylistRepository;
         }
 
         public IList<Playlist> GetAll()
@@ -34,22 +34,23 @@ namespace MyTunes.Services
 
         public void Create(Playlist entity)
         {
-            throw new NotImplementedException();
+            _repository.Create(entity);
         }
 
         public void Update(Playlist entity)
         {
-            throw new NotImplementedException();
+            _repository.Update(entity);
         }
 
-        public void Delete(Playlist entity)
+        public void Delete(int id)
         {
-            throw new NotImplementedException();
+            _repository.Delete(id);
+            Save();
         }
 
         public void Save()
         {
-            throw new NotImplementedException();
+            _uow.Commit();
         }
     }
 }

@@ -14,7 +14,7 @@ namespace MyTunes.Services.ServiceContracts
         MP3 Get(int id);
         void Create(MP3 entity);
         void Update(MP3 entity);
-        void Delete(MP3 entity);
+        void Delete(int id);
         void Save();
     }
 }

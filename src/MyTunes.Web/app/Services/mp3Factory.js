@@ -11,6 +11,7 @@ application.factory('mp3Factory',
         console.log(concatUrl('api/MP3/:id'));
 
         return $resource(concatUrl('api/MP3/:id'), {}, {
-            getAllSongs: { method: 'GET', isArray: true }
+            getAllSongs: { method: 'GET', isArray: true },
+            deleteSong: { method: 'DELETE', params: { mp3Id: '@id' } }
         })
     }]);

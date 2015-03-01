@@ -36,24 +36,30 @@ namespace MyTunes.Web.Api.Controllers
         }
 
         // GET api/<controller>/5
-        public string Get(int id)
+        public PlaylistViewModel Get(int id)
         {
-            return "value";
+            var playlistToReturn = _playlistService.Get(id);
+            return AutoMapper.Mapper.Map<Playlist, PlaylistViewModel>(playlistToReturn);
         }
 
         // POST api/<controller>
-        public void Post([FromBody]string value)
+        public void Post([FromBody]PlaylistViewModel playlist)
         {
+            var playlistToCreate = AutoMapper.Mapper.Map<PlaylistViewModel, Playlist>(playlist);
+            _playlistService.Create(playlistToCreate);
         }
 
         // PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
+        public void Put([FromBody]PlaylistViewModel playlist)
         {
+            var playlistToUpdate = AutoMapper.Mapper.Map<PlaylistViewModel, Playlist>(playlist);
+            _playlistService.Update(playlistToUpdate);
         }
 
         // DELETE api/<controller>/5
         public void Delete(int id)
         {
+            _playlistService.Delete(id);
         }
     }
 }

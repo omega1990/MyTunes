@@ -13,7 +13,7 @@ namespace MyTunes.Services.ServiceContracts
         Playlist Get(int id);
         void Create(Playlist entity);
         void Update(Playlist entity);
-        void Delete(Playlist entity);
+        void Delete(int id);
         void Save();
     }
 }

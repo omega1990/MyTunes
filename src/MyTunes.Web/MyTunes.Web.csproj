@@ -58,12 +58,19 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.js" />
+    <Content Include="app\CreateMP3Form\createMp3Controller.js" />
+    <Content Include="app\CreateMP3Form\createMp3Template.html" />
+    <Content Include="app\ListMP3Form\DeleteModalWindow\modalController.js" />
+    <Content Include="app\ListMP3Form\DeleteModalWindow\modalTemplate.html" />
     <Content Include="app\ListMP3Form\listMp3Controller.js" />
     <Content Include="app\ListMP3Form\listMp3Directive.js" />
     <Content Include="app\ListMP3Form\listMp3Template.html" />
-    <Content Include="app\ListPlaylistForm\playlistController.js" />
-    <Content Include="app\ListPlaylistForm\playlistDirective.js" />
-    <Content Include="app\ListPlaylistForm\playlistTemplate.html" />
+    <Content Include="app\ListPlaylistForm\DeleteModalWindow\modalController.js" />
+    <Content Include="app\ListPlaylistForm\DeleteModalWindow\modalTemplate.html" />
+    <Content Include="app\ListPlaylistForm\listPlaylistController.js" />
+    <Content Include="app\ListPlaylistForm\listPlaylistDirective.js" />
+    <Content Include="app\ListPlaylistForm\listPlaylistTemplate.html" />
+    <Content Include="app\Navigation\navController.js" />
     <Content Include="app\Services\mp3Factory.js" />
     <Content Include="app\Services\playlistFactory.js" />
     <Content Include="Content\bootstrap-theme.css" />
