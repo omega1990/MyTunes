@@ -1,0 +1,40 @@
+﻿
+<table class="slide table table-striped table-condensed table-hover">
+    <thead>
+        <th>Title</th>
+        <th>Artist</th>
+        <th>Album</th>
+        <th>Year</th>
+        <th>Playlists</th>
+        <th></th>
+    </thead>
+    <tbody ng-repeat="song in mp3s">
+        <tr>
+            <td>{{song.Title}}</td>
+            <td>{{song.Artist}}</td>
+            <td>{{song.Album}}</td>
+            <td>{{song.Year}}</td>
+            <td>
+                <table ng-repeat="playlist in song.Playlist">
+                    <tr>
+                        <td>
+                            {{playlist.Name}}
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td class="col-md-1">
+                <button class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span></button>
+                <button class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<button class="input-block-level form-control container btn btn-custom-primary">
+    <span class="glyphicon glyphicon-plus"></span>
+</button>
+
+
+
+

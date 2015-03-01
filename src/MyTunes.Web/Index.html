@@ -1,9 +1,49 @@
 ﻿<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html ng-app="application" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>My application</title>
+    <title>MyTunes</title>
+
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="Content/custom.css" rel="stylesheet" />
+
+    <script src="Scripts/angular.min.js"></script>
+    <script src="Scripts/angular-route.min.js"></script>
+    <script src="Scripts/angular-resource.min.js"></script>
+
+    <script src="app/app.js"></script>
+    <script src="app/ListMP3Form/listMp3Controller.js"></script>
+    <script src="app/ListPlaylistForm/playlistController.js"></script>
+    <script src="app/Services/mp3Factory.js"></script>
+    <script src="app/Services/playlistFactory.js"></script>
+
 </head>
 <body>
-    <p>This is the main page</p>
+    <div class="container">
+        <br />
+        <br />
+        <br />
+        <br />
+        <h2>MyTunes</h2>
+        <h5>Keep track of your tracks</h5>
+        <br />
+        <br />
+
+
+        <div class="navbar navbar-default">
+            <div class="container">
+                <ul class="nav navbar-nav">
+                    <li ng-class='{"nav-item-active":tog==1 || tog!=2}' ng-click='tog=1'><a href="#/mp3" >Songs</a></li>
+                    <li ng-class ='{"nav-item-active":tog==2}' ng-click='tog=2'><a href="#/playlist">Playlists</a></ling-class>
+                </ul>
+            </div>
+        </div>
+        <br />
+        <br />
+        <div ng-view></div>
+        <hr />
+        <footer>
+            <p>2015 - MyTunes</p>
+        </footer>
+    </div>
 </body>
 </html>
