@@ -17,6 +17,8 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
+using AutoMapper;
+
 namespace MyTunes.Web.Api.Controllers
 {
     public class PlaylistController : ApiController
@@ -29,17 +31,23 @@ namespace MyTunes.Web.Api.Controllers
         }
 
         // GET api/<controller>
-        public IList<PlaylistViewModel> Get()
+        public IHttpActionResult Get()
         {
             var playlists = _playlistService.GetAll();
-            return AutoMapper.Mapper.Map<IList<Playlist>, IList<PlaylistViewModel>>(playlists);
+            var playlistsToReturn = new List<PlaylistViewModel>();
+            Mapper.Map(playlists, playlistsToReturn);
+
+            return Ok(playlistsToReturn);
         }
 
         // GET api/<controller>/5
-        public PlaylistViewModel Get(int id)
+        public IHttpActionResult Get(int id)
         {
-            var playlistToReturn = _playlistService.Get(id);
-            return AutoMapper.Mapper.Map<Playlist, PlaylistViewModel>(playlistToReturn);
+            var playlist = _playlistService.Get(id);
+            var playlistToReturn = new PlaylistViewModel();
+            Mapper.Map(playlist, playlistToReturn);
+
+            return Ok(playlistToReturn);
         }
 
         // POST api/<controller>

@@ -12,6 +12,9 @@ application.factory('playlistFactory',
 
         return $resource(concatUrl('api/playlist/:id'), {}, {
             getAllPlaylists: { method: 'GET', isArray: true }, 
-            deletePlaylist: { method: 'DELETE', params: { playlistId: '@id' } }
+            deletePlaylist: { method: 'DELETE', params: { playlistId: '@id' } },
+            getPlaylist: { method: 'GET', params: { playlistId: '@id' }, isArray: false },
+            createPlaylist: { method: 'POST' },
+            updatePlaylist: { method: 'PUT', params: { playlistId: '@id' }},
         })
     }]);

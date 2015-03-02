@@ -34,12 +34,30 @@ namespace MyTunes.Services
 
         public void Create(Playlist entity)
         {
+            IList<MP3> attachedMp3s = new List<MP3>();
+            foreach (var mp3 in entity.MP3)
+            {
+                attachedMp3s.Add(_uow.Mp3Repository.GetAll().FirstOrDefault(x => x.MP3ID == mp3.MP3ID));
+            }
+
+            entity.MP3.Clear();
+            entity.MP3 = attachedMp3s;
             _repository.Create(entity);
+            Save();
         }
 
         public void Update(Playlist entity)
         {
-            _repository.Update(entity);
+            var attachedEntity = _repository.Get(x => x.PlaylistID == entity.PlaylistID);
+            IList<Playlist> attachedMp3s = new List<Playlist>();
+            attachedEntity.MP3.Clear();
+            foreach (var mp3 in entity.MP3)
+            {
+                attachedEntity.MP3.Add(_uow.Mp3Repository.GetAll().FirstOrDefault(x => x.MP3ID == mp3.MP3ID));
+            }
+
+            attachedEntity.Name = entity.Name;
+            Save();
         }
 
         public void Delete(int id)

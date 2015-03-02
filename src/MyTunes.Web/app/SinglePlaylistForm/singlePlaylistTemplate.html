@@ -1,0 +1,72 @@
+﻿
+
+<form name="playlistForm" role="form" novalidate>
+            <div class="row">
+                <div class="container">
+                    <div class="col-sm-6">
+                        <fieldset>
+                            <legend>
+                                Playlist
+                            </legend>
+
+                            <!-- Name -->
+                            <div class="form-group" show-errors>
+                                <label for="name">Name:</label>
+                                <div>
+                                    <input id="name" name="name" class="form-control" type="text" ng-model="playlist.Name" ng-required="true" ng-maxlength="50" />
+                                    <span class="help-block" ng-show="playlistForm.name.$error.required && playlistForm.name.$dirty">Name is required</span>
+                                    <span class="help-block" ng-show="playlistForm.name.$error.maxlength && playlistForm.name.$dirty">Name is too long</span>
+                                </div>
+                            </div>
+
+                            <!-- MP3s in playlist -->
+                            <table class="slide table table-striped table-condensed table-hover">
+                                <thead>
+                                <th>Title</th>
+                                <th>Artist</th>
+                                <th></th>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="song in playlist.MP3">
+                                        <td>{{song.Title}}</td>
+                                        <td>{{song.Artist}}</td>
+                                        <td class="col-md-1">
+                                            <button class="btn btn-danger" ng-click="removeFromPlaylist(song)"><span class="glyphicon glyphicon-remove"></span></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </fieldset>
+                    </div>
+                    <div class="col-sm-6 pull-right">
+                        <fieldset>
+                            <legend>
+                                Songs To Add
+                            </legend>
+
+                            <!-- MP3s not in playlist -->
+                            <table class="slide table table-striped table-condensed table-hover">
+                                <thead>
+                                <th>Title</th>
+                                <th>Artist</th>
+                                <th></th>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="song in mp3s">
+                                        <td>{{song.Title}}</td>
+                                        <td>{{song.Artist}}</td>
+                                        <td class="col-md-1">
+                                            <button class="input-block-level form-control container btn btn-custom-primary" ng-click="addToPlaylist(song)">
+                                                <span class="glyphicon glyphicon-plus"></span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+    <button ng-click="submitData()" type="submit" class="input-block-level form-control btn btn-primary">Submit</button>
+</form>
