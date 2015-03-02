@@ -18,13 +18,22 @@ application.config(["$routeProvider", "$locationProvider",
             controller: "listPlaylistController"
         })
         .when("/createMp3", {
-            templateUrl: "app/CreateMP3Form/createMp3Template.html",
-            controller: "createMp3Controller"
+            templateUrl: "app/SingleMP3Form/singleMp3Template.html",
+            controller: "singleMp3Controller"
         })
         .when("/editMp3", {
-            templateUrl: "app/CreateMP3Form/createMp3Template.html",
-            controller: "createMp3Controller"
+            templateUrl: "app/SingleMP3Form/singleMp3Template.html",
+            controller: "singleMp3Controller"
         })
+        .when("/createPlaylist", {
+            templateUrl: "app/SinglePlaylistForm/singlePlaylistTemplate.html",
+            controller: "singlePlaylistController"
+        })
+        .when("/editPlaylist", {
+            templateUrl: "app/SinglePlaylistForm/singlePlaylistTemplate.html",
+            controller: "singlePlaylistController"
+        })
+
         .otherwise({
             redirectTo: "/mp3"
         });

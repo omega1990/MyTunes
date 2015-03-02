@@ -1,7 +1,7 @@
 ﻿
-application.controller("createMp3Controller",
+application.controller("singleMp3Controller",
     ["$scope", "$location", "mp3Factory", "playlistFactory", "mp3DataService",
-    function createMp3Controller($scope, $location, mp3Factory, playlistFactory, mp3DataService) {
+    function singleMp3Controller($scope, $location, mp3Factory, playlistFactory, mp3DataService) {
 
         $scope.mp3 = {};
         $scope.mp3.Playlist = [];

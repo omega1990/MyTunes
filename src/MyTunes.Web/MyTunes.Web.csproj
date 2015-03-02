@@ -58,8 +58,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.js" />
-    <Content Include="app\CreateMP3Form\createMp3Controller.js" />
-    <Content Include="app\CreateMP3Form\createMp3Template.html" />
+    <Content Include="app\Services\playlistDataService.js" />
+    <Content Include="app\SingleMP3Form\singleMp3Controller.js" />
+    <Content Include="app\SingleMP3Form\singleMp3Template.html" />
+    <Content Include="app\SinglePlaylistForm\singlePlaylistController.js" />
+    <Content Include="app\SinglePlaylistForm\singlePlaylistTemplate.html" />
     <Content Include="app\ListMP3Form\DeleteModalWindow\modalController.js" />
     <Content Include="app\ListMP3Form\DeleteModalWindow\modalTemplate.html" />
     <Content Include="app\ListMP3Form\listMp3Controller.js" />

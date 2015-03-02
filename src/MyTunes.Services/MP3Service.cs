@@ -33,6 +33,38 @@ namespace MyTunes.Services
             return _repository.Get(x => x.MP3ID.Equals(id)); 
         }
 
+        public IList<MP3> GetInPlaylist(int playlistID)
+        {
+            var playlist = _uow.PlaylistRepository.GetAll().Where(x => x.PlaylistID == playlistID).FirstOrDefault();
+            if (playlist != null)
+            {
+                List<MP3> mp3InPlaylist = new List<MP3>();
+
+                mp3InPlaylist.AddRange(playlist.MP3);
+                return mp3InPlaylist;
+            }
+            return null;
+        }
+
+        public IList<MP3> GetNotInPlaylist(int playlistID)
+        {
+            var playlist = _uow.PlaylistRepository.GetAll().Where(x => x.PlaylistID == playlistID).FirstOrDefault();
+            if (playlist != null)
+            {
+                var mp3InPlaylist = new List<MP3>();
+                mp3InPlaylist.AddRange(playlist.MP3);
+
+                IList<MP3> mp3sNotInPlaylist = _repository.GetAll();
+                foreach (var mp3 in mp3InPlaylist)
+                {
+                    mp3sNotInPlaylist.Remove(mp3);
+                }
+                
+                return mp3sNotInPlaylist;
+            }
+            return null;
+        }
+
         public void Create(MP3 entity)
         {
             IList<Playlist> attachedPlaylists = new List<Playlist>();
@@ -71,7 +103,6 @@ namespace MyTunes.Services
             _repository.Delete(id);
             Save();
         }
-
         public void Save()
         {
             _uow.Commit();

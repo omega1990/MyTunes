@@ -8,13 +8,13 @@
         <tr ng-repeat="playlist in playlists">
             <td class="col-md-11">{{playlist.Name}}</td>
             <td class="col-md-1">
-                <button class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span></button>
+                <button class="btn btn-default" ng-click="openEditPlaylistForm(playlist.PlaylistID)"><span class="glyphicon glyphicon-pencil"></span></button>
                 <button class="btn btn-danger" ng-click="deletePlaylist(playlist.PlaylistID)"><span class="glyphicon glyphicon-remove"></span></button>
             </td>
     </tbody>
 </table>
 
-<button class="input-block-level form-control container btn btn-custom-primary">
+<button class="input-block-level form-control container btn btn-custom-primary" ng-click="openCreatePlaylistForm()">
     <span class="glyphicon glyphicon-plus"></span>
 </button>
 

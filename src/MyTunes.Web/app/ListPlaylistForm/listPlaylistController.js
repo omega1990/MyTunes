@@ -1,10 +1,10 @@
 ﻿
 
 application.controller("listPlaylistController",
-    ["$scope", "$modal", "playlistFactory",
-    function listPlaylistController($scope, $modal, playlistFactory) {
+    ["$scope", "$location", "$modal", "playlistFactory", "playlistDataService",
+    function listPlaylistController($scope, $location, $modal, playlistFactory, playlistDataService) {
         $scope.tog = 2;
-         
+
         $scope.playlists = playlistFactory.getAllPlaylists();
 
         console.log($scope.playlists);
@@ -33,6 +33,25 @@ application.controller("listPlaylistController",
                     console.log("Playlist deleted.");
                 });
         }
+
+        $scope.openCreatePlaylistForm = function openCreatePlaylistForm() {
+            $location.path("/createPlaylist");
+
+        }
+
+
+
+        $scope.openEditPlaylistForm = function openEditPlaylistForm(playlistId) {
+            $scope.playlistToEdit = {};
+
+            playlistFactory.getPlaylist({ id: playlistId }).$promise
+            .then(function (data) {
+                playlistDataService.setPlaylist(data);
+                console.log(data);
+                $location.path("/editPlaylist");
+            });
+        }
+
 
 
     }]);

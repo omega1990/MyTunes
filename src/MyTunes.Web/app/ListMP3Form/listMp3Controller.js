@@ -37,7 +37,7 @@ application.controller("listMp3Controller",
         $scope.openCreateMp3Form = function openCreateMp3Form() {
             $location.path("/createMp3");
         }
-
+        
 
         $scope.openEditMp3Form = function openEditMp3Form(mp3Id) {
             $scope.mp3ToEdit = {};

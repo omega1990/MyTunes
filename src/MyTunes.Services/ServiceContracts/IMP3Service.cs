@@ -11,6 +11,8 @@ namespace MyTunes.Services.ServiceContracts
     public interface IMP3Service 
     {
         IList<MP3> GetAll();
+        IList<MP3> GetInPlaylist(int playlistID);
+        IList<MP3> GetNotInPlaylist(int playlistID);
         MP3 Get(int id);
         void Create(MP3 entity);
         void Update(MP3 entity);
