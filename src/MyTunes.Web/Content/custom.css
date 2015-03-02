@@ -10,3 +10,7 @@
 .nav-item-active {
     background-color: #D3D3D3;
 }
+
+.stick-top{
+    padding-top:0;
+}

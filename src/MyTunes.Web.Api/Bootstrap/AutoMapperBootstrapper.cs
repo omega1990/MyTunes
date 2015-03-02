@@ -27,6 +27,8 @@ namespace MyTunes.Web.Api.Bootstrap
             // ViewModel -> Model
             AutoMapper.Mapper.CreateMap<MP3ViewModel, MP3>();
             AutoMapper.Mapper.CreateMap<PlaylistViewModel, Playlist>();
+
+
         }
     }
 }

@@ -8,15 +8,15 @@
         <th>Playlists</th>
         <th></th>
     </thead>
-    <tbody ng-repeat="song in mp3s">
-        <tr>
+    <tbody>
+        <tr ng-repeat="song in mp3s">
             <td>{{song.Title}}</td>
             <td>{{song.Artist}}</td>
             <td>{{song.Album}}</td>
             <td>{{song.Year}}</td>
             <td>
-                <table ng-repeat="playlist in song.Playlist">
-                    <tr>
+                <table>
+                    <tr ng-repeat="playlist in song.Playlist">
                         <td>
                             {{playlist.Name}}
                         </td>
@@ -24,14 +24,14 @@
                 </table>
             </td>
             <td class="col-md-1">
-                <button class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span></button>
+                <button class="btn btn-default" ng-click="openEditMp3Form(song.MP3ID)"><span class="glyphicon glyphicon-pencil"></span></button>
                 <button class="btn btn-danger" ng-click="deleteMp3(song.MP3ID)"><span class="glyphicon glyphicon-remove"></span></button>
             </td>
         </tr>
     </tbody>
 </table>
 
-<button class="input-block-level form-control container btn btn-custom-primary">
+<button class="input-block-level form-control container btn btn-custom-primary" ng-click="openCreateMp3Form()">
     <span class="glyphicon glyphicon-plus"></span>
 </button>
 

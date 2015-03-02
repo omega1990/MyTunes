@@ -29,7 +29,7 @@ namespace MyTunes.Data.Repositories
             this.entities = entities;
             this.dbSet = entities.Set<T>();
         }
-
+       
         public IList<T> GetAll()
         {
             return dbSet.ToList();
@@ -47,8 +47,7 @@ namespace MyTunes.Data.Repositories
 
         public void Update(T entity)
         {
-            dbSet.Attach(entity);
-            entities.Entry(entity).State = EntityState.Modified;
+            
         }
 
         public void Delete(int id)

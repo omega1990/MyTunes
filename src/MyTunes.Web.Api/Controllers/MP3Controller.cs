@@ -52,6 +52,7 @@ namespace MyTunes.Web.Api.Controllers
         }
 
         // PUT api/<controller>/5
+        [HttpPut]
         public void Put([FromBody]MP3ViewModel mp3)
         {
             var mp3ToUpdate = AutoMapper.Mapper.Map<MP3ViewModel, MP3>(mp3);

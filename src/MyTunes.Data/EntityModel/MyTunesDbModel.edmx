@@ -9,7 +9,7 @@
           <Key>
             <PropertyRef Name="MP3ID" />
           </Key>
-          <Property Name="MP3ID" Type="int" Nullable="false" />
+          <Property Name="MP3ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="50" />
           <Property Name="Artist" Type="nvarchar" MaxLength="50" />
           <Property Name="Album" Type="nvarchar" MaxLength="50" />
@@ -27,7 +27,7 @@
           <Key>
             <PropertyRef Name="PlaylistID" />
           </Key>
-          <Property Name="PlaylistID" Type="int" Nullable="false" />
+          <Property Name="PlaylistID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <Association Name="FK_MP3Playlist_MP3">

@@ -18,7 +18,11 @@ application.config(["$routeProvider", "$locationProvider",
             controller: "listPlaylistController"
         })
         .when("/createMp3", {
-            templateUrl: "app/ListPlaylistForm/playlistTemplate.html",
+            templateUrl: "app/CreateMP3Form/createMp3Template.html",
+            controller: "createMp3Controller"
+        })
+        .when("/editMp3", {
+            templateUrl: "app/CreateMP3Form/createMp3Template.html",
             controller: "createMp3Controller"
         })
         .otherwise({

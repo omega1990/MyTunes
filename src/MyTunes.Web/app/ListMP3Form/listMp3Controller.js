@@ -1,11 +1,11 @@
 ﻿
 application.controller("listMp3Controller",
-    ["$scope", "$modal", "mp3Factory",
-    function listMp3Controller($scope, $modal, mp3Factory) {
+    ["$scope", "$modal", "$location", "mp3Factory", "mp3DataService",
+    function listMp3Controller($scope, $modal, $location, mp3Factory, mp3DataService) {
 
         $scope.tog = 1;
         $scope.mp3s = mp3Factory.getAllSongs();
-         
+
         console.log($scope.mp3s);
 
 
@@ -33,6 +33,22 @@ application.controller("listMp3Controller",
                 });
         }
 
+
+        $scope.openCreateMp3Form = function openCreateMp3Form() {
+            $location.path("/createMp3");
+        }
+
+
+        $scope.openEditMp3Form = function openEditMp3Form(mp3Id) {
+            $scope.mp3ToEdit = {};
+
+            mp3Factory.getSong({ id: mp3Id }).$promise
+            .then(function (data) {
+                mp3DataService.setMp3(data);
+                console.log(data);
+                $location.path("/editMp3");
+            });
+        }
 
 
 

@@ -8,6 +8,7 @@ using MyTunes.Services.ServiceContracts;
 using MyTunes.Data.Repositories;
 using MyTunes.Data.EntityModel;
 using MyTunes.Data.UnitOfWork;
+using System.Data.Entity;
 
 namespace MyTunes.Services
 {
@@ -34,12 +35,35 @@ namespace MyTunes.Services
 
         public void Create(MP3 entity)
         {
+            IList<Playlist> attachedPlaylists = new List<Playlist>();
+            foreach(var playlist in entity.Playlist)
+            {
+                attachedPlaylists.Add(_uow.PlaylistRepository.GetAll().FirstOrDefault(x => x.PlaylistID == playlist.PlaylistID));
+            }
+
+            entity.Playlist.Clear();
+            entity.Playlist = attachedPlaylists;
+
             _repository.Create(entity);
+            Save();
         }
 
         public void Update(MP3 entity)
         {
-            _repository.Update(entity);
+            var attachedEntity = _uow.Mp3Repository.Get(x => x.MP3ID == entity.MP3ID);
+            IList<Playlist> attachedPlaylists = new List<Playlist>();
+            attachedEntity.Playlist.Clear();
+            foreach (var playlist in entity.Playlist)
+            {
+                attachedEntity.Playlist.Add(_uow.PlaylistRepository.GetAll().FirstOrDefault(x => x.PlaylistID == playlist.PlaylistID));
+            }
+
+            attachedEntity.Album = entity.Album;
+            attachedEntity.Artist = entity.Artist;
+            attachedEntity.Title = entity.Title;
+            attachedEntity.Year = entity.Year;
+
+            Save();
         }
 
         public void Delete(int id)
