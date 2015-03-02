@@ -56,6 +56,9 @@ application.controller("singlePlaylistController",
         
         // Submit form data
         $scope.submitData = function submitData() {
+            if ($scope.playlistForm.$invalid)
+                return;
+
             if (isNew) {
                 playlistFactory.createPlaylist($scope.playlist).$promise
                 .then(function () {

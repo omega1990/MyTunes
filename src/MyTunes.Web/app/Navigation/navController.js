@@ -1,7 +1,7 @@
 ﻿
 application.controller("navController",
-    ["$scope", "$location",
-    function navController($scope, $location) {
+    ["$scope", "$rootScope", "$location",
+    function navController($scope, $rootScope, $location) {
         $scope.getClass = function (path) {
             if ($location.path().substr(0, path.length) == path) {
                 return "active"
@@ -9,4 +9,9 @@ application.controller("navController",
                 return ""
             }
         }
+
+
+        $scope.search = function search() {
+                $rootScope.$broadcast('search-event', $scope.searchString);
+        };
     }]);

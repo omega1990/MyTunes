@@ -65,6 +65,35 @@ namespace MyTunes.Services
             return null;
         }
 
+        public IList<MP3> GetFiltered(string searchQuery)
+        {
+            var mp3s = _repository.GetAll();
+            var queriedMp3s = new List<MP3>();
+
+            if(!String.IsNullOrEmpty(searchQuery))
+            {
+                searchQuery = searchQuery.ToLower();
+                foreach (var mp3 in mp3s)
+                {
+                    if (searchQuery.Contains(mp3.Title.ToLower()) || searchQuery.Contains(mp3.Album.ToLower()))
+                    {
+                        queriedMp3s.Add(mp3);
+                        continue;
+                    }
+
+                    foreach(var playlist in mp3.Playlist)
+                    {
+                        if(searchQuery.Contains(playlist.Name.ToLower()))
+                        {
+                            queriedMp3s.Add(mp3);
+                            break;
+                        }
+                    }
+                }
+            }
+            return queriedMp3s;
+        }
+
         public void Create(MP3 entity)
         {
             IList<Playlist> attachedPlaylists = new List<Playlist>();

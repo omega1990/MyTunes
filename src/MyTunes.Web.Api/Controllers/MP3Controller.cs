@@ -58,6 +58,7 @@ namespace MyTunes.Web.Api.Controllers
         public IHttpActionResult GetInPlaylist(int playlistId)
         {
             var mp3sToReturn = _mp3service.GetInPlaylist(playlistId);
+
             return Ok(mp3sToReturn);
         }
 
@@ -66,29 +67,48 @@ namespace MyTunes.Web.Api.Controllers
         public IHttpActionResult GetNotInPlaylist(int playlistId)
         {
             var mp3sToReturn = _mp3service.GetNotInPlaylist(playlistId);
+
+            return Ok(mp3sToReturn);
+        }
+
+
+        [HttpGet]
+        [Route("api/MP3/getFiltered/{searchQuery:alpha}")]
+        public IHttpActionResult GetFiltered(string searchQuery)
+        {
+            var mp3sToReturn = _mp3service.GetFiltered(searchQuery);
+
             return Ok(mp3sToReturn);
         }
 
 
         // POST api/<controller>
-        public void Post([FromBody]MP3ViewModel mp3)
+        public IHttpActionResult Post([FromBody]MP3ViewModel mp3)
         {
-            var mp3ToCreate = AutoMapper.Mapper.Map<MP3ViewModel, MP3>(mp3);
+            var mp3ToCreate = new MP3();
+            Mapper.Map(mp3, mp3ToCreate);
             _mp3service.Create(mp3ToCreate);
+
+            return Created(Url.Link("DefaultApi", new { id = mp3ToCreate.MP3ID }), mp3ToCreate);
         }
 
         // PUT api/<controller>/5
         [HttpPut]
-        public void Put([FromBody]MP3ViewModel mp3)
+        public IHttpActionResult Put([FromBody]MP3ViewModel mp3)
         {
-            var mp3ToUpdate = AutoMapper.Mapper.Map<MP3ViewModel, MP3>(mp3);
+            var mp3ToUpdate = new MP3();
+            Mapper.Map(mp3, mp3ToUpdate);
             _mp3service.Update(mp3ToUpdate);
+
+            return Ok(mp3ToUpdate);
         }
 
         // DELETE api/<controller>/5
-        public void Delete(int id)
+        public IHttpActionResult Delete(int id)
         {
             _mp3service.Delete(id);
+
+            return Ok();
         }
     }
 }

@@ -50,24 +50,44 @@ namespace MyTunes.Web.Api.Controllers
             return Ok(playlistToReturn);
         }
 
-        // POST api/<controller>
-        public void Post([FromBody]PlaylistViewModel playlist)
+        [HttpGet]
+        [Route("api/Playlist/getFiltered/{searchQuery:alpha}")]
+        public IHttpActionResult GetFiltered(string searchQuery)
         {
-            var playlistToCreate = AutoMapper.Mapper.Map<PlaylistViewModel, Playlist>(playlist);
+            var playlists = _playlistService.GetFiltered(searchQuery);
+            var playlistsToReturn = new List<PlaylistViewModel>();
+            Mapper.Map(playlists, playlistsToReturn);
+
+            return Ok(playlistsToReturn);
+        }
+
+
+        // POST api/<controller>
+        public IHttpActionResult Post([FromBody]PlaylistViewModel playlist)
+        {
+            var playlistToCreate = new Playlist();
+            Mapper.Map(playlist, playlistToCreate);
             _playlistService.Create(playlistToCreate);
+
+            return Created(Url.Link("DefaultApi", new { id = playlistToCreate.PlaylistID }), playlistToCreate);
         }
 
         // PUT api/<controller>/5
-        public void Put([FromBody]PlaylistViewModel playlist)
+        public IHttpActionResult Put([FromBody]PlaylistViewModel playlist)
         {
-            var playlistToUpdate = AutoMapper.Mapper.Map<PlaylistViewModel, Playlist>(playlist);
+            var playlistToUpdate = new Playlist();
+            Mapper.Map(playlist, playlistToUpdate);
             _playlistService.Update(playlistToUpdate);
+
+            return Ok(playlistToUpdate);
         }
 
         // DELETE api/<controller>/5
-        public void Delete(int id)
+        public IHttpActionResult Delete(int id)
         {
             _playlistService.Delete(id);
+
+            return Ok();
         }
     }
 }

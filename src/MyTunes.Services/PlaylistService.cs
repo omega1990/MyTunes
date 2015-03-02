@@ -32,6 +32,28 @@ namespace MyTunes.Services
             return _repository.Get(x => x.PlaylistID.Equals(id));
         }
 
+        public IList<Playlist> GetFiltered(string searchQuery)
+        {
+            var playlists = _repository.GetAll();
+            var queriedPlaylists = new List<Playlist>();
+
+            if (!String.IsNullOrEmpty(searchQuery))
+            {
+                searchQuery = searchQuery.ToLower();
+
+
+                foreach (var playlist in playlists)
+                {
+                    if (searchQuery.Contains(playlist.Name.ToLower()))
+                    {
+                        queriedPlaylists.Add(playlist);
+                        continue;
+                    }
+                }
+            }
+            return queriedPlaylists;
+        }
+
         public void Create(Playlist entity)
         {
             IList<MP3> attachedMp3s = new List<MP3>();

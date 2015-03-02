@@ -11,6 +11,7 @@ namespace MyTunes.Services.ServiceContracts
     {
         IList<Playlist> GetAll();
         Playlist Get(int id);
+        IList<Playlist> GetFiltered(string searchQuery);
         void Create(Playlist entity);
         void Update(Playlist entity);
         void Delete(int id);

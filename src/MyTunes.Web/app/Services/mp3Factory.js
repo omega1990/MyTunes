@@ -17,6 +17,8 @@ application.factory('mp3Factory',
             createSong: { method: 'POST' },
             updateSong: { method: 'PUT', params: { mp3Id: '@id' } },
             getSongsInPlaylist: { url: concatUrl('api/MP3/getInPlaylist/:playlistId'), method: 'GET', params: { playlistId: '@playlistId' }, isArray: true },
-            getSongsNotInPlaylist: { url: concatUrl('api/MP3/getNotInPlaylist/:playlistId'), method: 'GET', params: { playlistId: '@playlistId' }, isArray: true }
+            getSongsNotInPlaylist: { url: concatUrl('api/MP3/getNotInPlaylist/:playlistId'), method: 'GET', params: { playlistId: '@playlistId' }, isArray: true },
+            getFilteredMp3s: { url: concatUrl('api/MP3/getFiltered/:searchQuery'), method: 'GET', params: { searchQuery: '@searchQuery' }, isArray: true }
+
     })
 }]);

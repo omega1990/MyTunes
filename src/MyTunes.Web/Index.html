@@ -41,10 +41,16 @@
 
 
         <div class="navbar navbar-default" ng-controller="navController">
-            <div class="container">
+            <div class="container-fluid">
                 <ul class="nav navbar-nav">
                     <li ng-class="getClass('/mp3')"><a href="#/mp3">Songs</a></li>
                     <li ng-class="getClass('/playlist')"><a href="#/playlist">Playlists</a></ling-class>
+
+                </ul>
+                <ul class="nav navbar-nav pull-right">
+                    <li class="navbar-right">
+                        <input id="search" name="search" ng-change="search()" ng-model="searchString" class="form-control" type="text" placeholder="Search">
+                    </li>
                 </ul>
             </div>
         </div>
