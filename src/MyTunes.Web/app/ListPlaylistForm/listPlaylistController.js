@@ -21,7 +21,7 @@ application.controller("listPlaylistController",
             }).result
                 .then(function () {
                     console.log("Deleting playlist with id " + playlistId);
-                    playlistFactory.deletePlaylist({ id: playlistId })
+                    playlistFactory.deletePlaylist({ id: playlistId }).$promise
                         .then(function () {
                             var index = -1;
                             for (var i = 0; i < $scope.playlists.length; i++) {

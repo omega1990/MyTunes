@@ -73,7 +73,7 @@ namespace MyTunes.Web.Api.Controllers
 
 
         [HttpGet]
-        [Route("api/MP3/getFiltered/{searchQuery:alpha}")]
+        [Route("api/MP3/getFiltered/{searchQuery}")]
         public IHttpActionResult GetFiltered(string searchQuery)
         {
             var mp3sToReturn = _mp3service.GetFiltered(searchQuery);

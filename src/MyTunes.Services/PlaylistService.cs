@@ -44,7 +44,7 @@ namespace MyTunes.Services
 
                 foreach (var playlist in playlists)
                 {
-                    if (searchQuery.Contains(playlist.Name.ToLower()))
+                    if (playlist.Name.ToLower().Contains(searchQuery))
                     {
                         queriedPlaylists.Add(playlist);
                         continue;

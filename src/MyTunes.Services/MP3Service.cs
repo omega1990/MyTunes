@@ -75,7 +75,7 @@ namespace MyTunes.Services
                 searchQuery = searchQuery.ToLower();
                 foreach (var mp3 in mp3s)
                 {
-                    if (searchQuery.Contains(mp3.Title.ToLower()) || searchQuery.Contains(mp3.Album.ToLower()))
+                    if (mp3.Title.ToLower().Contains(searchQuery)|| mp3.Artist.ToLower().Contains(searchQuery))
                     {
                         queriedMp3s.Add(mp3);
                         continue;
@@ -83,7 +83,7 @@ namespace MyTunes.Services
 
                     foreach(var playlist in mp3.Playlist)
                     {
-                        if(searchQuery.Contains(playlist.Name.ToLower()))
+                        if(playlist.Name.ToLower().Contains(searchQuery))
                         {
                             queriedMp3s.Add(mp3);
                             break;
