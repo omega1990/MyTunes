@@ -58,6 +58,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.js" />
+    <Content Include="app\ListPlaylistForm\DirectivesTemplates\mp3DataTemplate.html" />
+    <Content Include="app\ListPlaylistForm\DirectivesTemplates\mp3PagingTemplate.html" />
+    <Content Include="app\ListPlaylistForm\DirectivesTemplates\playlistDataTemplate.html" />
     <Content Include="app\SingleMP3Form\singleMp3Controller.js" />
     <Content Include="app\SingleMP3Form\singleMp3Template.html" />
     <Content Include="app\SinglePlaylistForm\singlePlaylistController.js" />
@@ -72,10 +75,10 @@
     <Content Include="app\ListPlaylistForm\listPlaylistController.js" />
     <Content Include="app\ListPlaylistForm\listPlaylistDirective.js" />
     <Content Include="app\ListPlaylistForm\listPlaylistTemplate.html" />
-    <Content Include="app\Navigation\navController.js" />
-    <Content Include="app\Services\mp3Factory.js" />
-    <Content Include="app\Services\playlistFactory.js" />
-    <Content Include="app\Validation\validationDirective.js" />
+    <Content Include="app\Shared\Navigation\navController.js" />
+    <Content Include="app\Shared\Services\mp3Factory.js" />
+    <Content Include="app\Shared\Services\playlistFactory.js" />
+    <Content Include="app\Shared\Validation\validationDirective.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />

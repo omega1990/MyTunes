@@ -1,0 +1,8 @@
+﻿
+<br />
+<div ng-repeat="mp3 in playlist.MP3 | startFrom:currentPage[$index]*pageSize | limitTo:pageSize">
+    <div>
+        <span>{{ $index + 1 }}.</span>
+        <span>{{mp3.Title}}</span>
+    </div>
+</div>

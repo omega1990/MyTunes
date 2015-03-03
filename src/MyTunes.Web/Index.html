@@ -15,15 +15,15 @@
     <script src="app/ListMP3Form/listMp3Controller.js"></script>
     <script src="app/ListPlaylistForm/listPlaylistController.js"></script>
     <script src="app/ListMP3Form/DeleteModalWindow/modalController.js"></script>
-    <script src="app/Navigation/navController.js"></script>
+    <script src="app/Shared/Navigation/navController.js"></script>
     <script src="app/SingleMP3Form/singleMp3Controller.js"></script>
     <script src="app/SinglePlaylistForm/singlePlaylistController.js"></script>
+    
+    <script src="app/Shared/Validation/validationDirective.js"></script>
+    <script src="app/ListPlaylistForm/listPlaylistDirective.js"></script>
 
-    <script src="app/Validation/validationDirective.js"></script>
-
-    <script src="app/Services/mp3Factory.js"></script>
-    <script src="app/Services/playlistFactory.js"></script>
-
+    <script src="app/Shared/Services/mp3Factory.js"></script>
+    <script src="app/Shared/Services/playlistFactory.js"></script>
 </head>
 <body>
     <div class="container">
@@ -45,7 +45,7 @@
 
                 </ul>
                 <ul class="nav navbar-nav pull-right">
-                    <li class="navbar-right">
+                    <li class="search navbar-right">
                         <input id="search" name="search" ng-change="search()" ng-model="searchString" class="form-control" type="text" placeholder="Search">
                     </li>
                 </ul>

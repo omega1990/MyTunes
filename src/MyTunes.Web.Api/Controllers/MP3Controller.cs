@@ -82,25 +82,51 @@ namespace MyTunes.Web.Api.Controllers
         }
 
 
+        [HttpGet]
+        [Route("api/MP3/getPaginated/{page:int}")]
+        public IHttpActionResult GetPaginated(int page)
+        {
+            int pageSize = 10;
+            var mp3s = _mp3service.GetAll();
+            var mp3sToReturn = new List<MP3ViewModel>();
+            Mapper.Map(mp3s, mp3sToReturn);
+
+
+            mp3sToReturn = mp3sToReturn
+                .Skip(page * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            return Ok(mp3sToReturn);
+        }
+
+
         // POST api/<controller>
         public IHttpActionResult Post([FromBody]MP3ViewModel mp3)
         {
-            var mp3ToCreate = new MP3();
-            Mapper.Map(mp3, mp3ToCreate);
-            _mp3service.Create(mp3ToCreate);
-
-            return Created(Url.Link("DefaultApi", new { id = mp3ToCreate.MP3ID }), mp3ToCreate);
+            if (ModelState.IsValid)
+            {
+                var mp3ToCreate = new MP3();
+                Mapper.Map(mp3, mp3ToCreate);
+                _mp3service.Create(mp3ToCreate);
+                return Created(Url.Link("DefaultApi", new { id = mp3ToCreate.MP3ID }), mp3ToCreate);
+            }
+            return BadRequest(ModelState);
         }
 
         // PUT api/<controller>/5
         [HttpPut]
         public IHttpActionResult Put([FromBody]MP3ViewModel mp3)
         {
-            var mp3ToUpdate = new MP3();
-            Mapper.Map(mp3, mp3ToUpdate);
-            _mp3service.Update(mp3ToUpdate);
+            if (ModelState.IsValid)
+            {
+                var mp3ToUpdate = new MP3();
+                Mapper.Map(mp3, mp3ToUpdate);
+                _mp3service.Update(mp3ToUpdate);
 
-            return Ok(mp3ToUpdate);
+                return Ok(mp3ToUpdate);
+            }
+            return BadRequest(ModelState);
         }
 
         // DELETE api/<controller>/5

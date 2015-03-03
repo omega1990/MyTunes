@@ -1,7 +1,7 @@
 ﻿
 application.controller("listMp3Controller",
-    ["$scope", "$modal", "$location", "mp3Factory", "mp3DataService",
-    function listMp3Controller($scope, $modal, $location, mp3Factory, mp3DataService) {
+    ["$scope", "$modal", "$location", "mp3Factory", 
+    function listMp3Controller($scope, $modal, $location, mp3Factory) {
 
         mp3Factory.getAllSongs().$promise
         .then(function (data) {

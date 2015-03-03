@@ -7,14 +7,6 @@
   transition: background-color 1s ease;
 }
 
-.nav-item-active {
-    background-color: #D3D3D3;
-}
-
-.stick-top{
-    padding-top:0;
-}
-
 .playlist-songs {
     margin-left: 10px;
     font-size: 12px;
@@ -24,4 +16,9 @@
 .playlist {
     color:black;
     cursor:pointer;
+}
+
+.search {
+    margin-top:8px;
+    margin-right: 10px;
 }

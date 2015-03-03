@@ -1,0 +1,7 @@
+﻿
+<div>
+    <a class="playlist" ng-click="playlistClicked($index)">
+        {{playlist.Name}}
+    </a>
+    <span ng-show="!showSongs[$index]&&playlist.MP3.length!=0" class="label label-info">{{playlist.MP3.length}}</span>
+</div>

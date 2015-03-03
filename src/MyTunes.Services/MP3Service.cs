@@ -75,10 +75,22 @@ namespace MyTunes.Services
                 searchQuery = searchQuery.ToLower();
                 foreach (var mp3 in mp3s)
                 {
-                    if (mp3.Title.ToLower().Contains(searchQuery)|| mp3.Artist.ToLower().Contains(searchQuery))
+                    if (mp3.Title != null)
                     {
-                        queriedMp3s.Add(mp3);
-                        continue;
+                        if (mp3.Title.ToLower().Contains(searchQuery))
+                        {
+                            queriedMp3s.Add(mp3);
+                            continue;
+                        }
+                    }
+
+                    if(mp3.Artist != null)
+                    {
+                        if(mp3.Artist.ToLower().Contains(searchQuery))
+                        {
+                            queriedMp3s.Add(mp3);
+                            continue;
+                        }
                     }
 
                     foreach(var playlist in mp3.Playlist)

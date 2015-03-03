@@ -72,7 +72,7 @@ application.controller("listPlaylistController",
             }
         });
 
-        // Show pagingated songs inside playlist
+        // Show paginated songs inside playlist
         $scope.showSongs = [];
         $scope.currentPage = [];
         $scope.pageSize = [];

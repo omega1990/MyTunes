@@ -6,32 +6,37 @@ application.controller("singlePlaylistController",
 
         var isNew = true;
 
-        playlistFactory.getPlaylist({ playlistId: $routeParams.playlistId }).$promise
-        .then(function (data) {
-            $scope.playlist = data;
+        if ($routeParams.playlistId != null) {
 
-            if ($scope.playlist != null) isNew = false;
+            playlistFactory.getPlaylist({ playlistId: $routeParams.playlistId }).$promise
+            .then(function (data) {
+                $scope.playlist = data;
+                if ($scope.playlist != null) isNew = false;
 
-            if (isNew) {
-                mp3Factory.getAllSongs().$promise
-                .then(function (data) {
-                    $scope.mp3s = data;
-                });
+                if (isNew) {
+                    mp3Factory.getAllSongs().$promise
+                    .then(function (data) {
+                        $scope.mp3s = data;
+                    });
+                    console.log("getting");
 
-                $scope.playlist = {};
-                $scope.playlist.MP3 = [];
-            }
+                    $scope.playlist = {};
+                    $scope.playlist.MP3 = [];
+                }
 
-            else {
-                mp3Factory.getSongsNotInPlaylist({ playlistId: $scope.playlist.PlaylistID }).$promise
-                .then(function (data) {
-                    $scope.mp3s = data;
-                });
-            }
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
+                else {
+                    mp3Factory.getSongsNotInPlaylist({ playlistId: $scope.playlist.PlaylistID }).$promise
+                    .then(function (data) {
+                        $scope.mp3s = data;
+                    });
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+
+        }
+
 
 
         // Methods for adding and removing a song from the playlist
