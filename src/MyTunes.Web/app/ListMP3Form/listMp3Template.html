@@ -31,6 +31,26 @@
     </tbody>
 </table>
 
+
+<!-- Pagination -->
+<nav>
+    <ul class="pagination">
+        <li>
+            <a href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <li class="pagination-item" ng-repeat="button in navButtonNumber track by $index" ng-click="getPage($index)"><a>{{$index+1}}</a></li>
+        <li>
+            <a href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+
+
 <button class="input-block-level form-control container btn btn-custom-primary" ng-click="openCreateMp3Form()">
     <span class="glyphicon glyphicon-plus"></span>
 </button>

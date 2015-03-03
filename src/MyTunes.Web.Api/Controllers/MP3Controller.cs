@@ -100,6 +100,13 @@ namespace MyTunes.Web.Api.Controllers
             return Ok(mp3sToReturn);
         }
 
+        [HttpGet]
+        [Route("api/MP3/getCount")]
+        public IHttpActionResult GetCount()
+        {
+            var mp3s = _mp3service.GetAll();
+            return Ok(new { Count = mp3s.Count });
+        }
 
         // POST api/<controller>
         public IHttpActionResult Post([FromBody]MP3ViewModel mp3)

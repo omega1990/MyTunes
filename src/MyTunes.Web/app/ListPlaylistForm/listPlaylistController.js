@@ -4,11 +4,48 @@ application.controller("listPlaylistController",
     ["$scope", "$rootScope", "$location", "$modal", "playlistFactory",
     function listPlaylistController($scope, $rootScope, $location, $modal, playlistFactory) {
 
+
+        var pageSize = 10;
+        var navButtonNumber = 0;
+        $scope.navButtonNumber = [];
+
+        playlistFactory.getCount().$promise
+        .then(function (data) {
+            var count = data.Count;
+            navButtonNumber = Math.ceil(count / pageSize);
+
+            for (var i = 0; i < navButtonNumber; i++) {
+                $scope.navButtonNumber.push({});
+
+            }
+
+            $scope.getPage(0);
+
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+
+        $scope.getPage = function getPage(page) {
+            playlistFactory.getPaginated({ page: page }).$promise
+           .then(function (data) {
+               $scope.playlists = data;
+               console.log("Playlists fetched successfully");
+           })
+           .catch(function (error) {
+               console.log(error);
+           });
+        }
+
+
+
+
+
         playlistFactory.getAllPlaylists().$promise
             .then(function (data) {
                 $scope.playlists = data;
-                 console.log("Playlists fetched successfully!");
-             })
+                console.log("Playlists fetched successfully!");
+            })
             .catch(function (error) {
                 console.log(error);
             });
@@ -78,7 +115,7 @@ application.controller("listPlaylistController",
         $scope.pageSize = [];
         $scope.numberOfPages = [];
         $scope.pageSize = 10;
-        
+
         $scope.playlistClicked = function playlistClicked(index) {
             if ($scope.showSongs[index]) {
                 console.log("setting to invisible");
@@ -94,12 +131,12 @@ application.controller("listPlaylistController",
                 $scope.showSongs[index] = true;
             }
         };
-       
+
     }]);
 
 application.filter('startFrom', function () {
     return function (input, start) {
-        start = +start; 
+        start = +start;
         return input.slice(start);
     }
 });

@@ -79,6 +79,15 @@ namespace MyTunes.Web.Api.Controllers
             return Ok(playlistsToReturn);
         }
 
+        [HttpGet]
+        [Route("api/Playlist/getCount")]
+        public IHttpActionResult GetCount()
+        {
+            var playlists = _playlistService.GetAll();
+            return Ok(new { Count = playlists.Count });
+        }
+
+
 
 
         // POST api/<controller>

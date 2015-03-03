@@ -16,6 +16,8 @@ application.factory('playlistFactory',
             deletePlaylist: { method: 'DELETE', params: { playlistId: '@id' } },
             getPlaylist: { method: 'GET', params: { playlistId: '@id' }, isArray: false },
             createPlaylist: { method: 'POST' },
-            updatePlaylist: { method: 'PUT', params: { playlistId: '@id' }},
+            updatePlaylist: { method: 'PUT', params: { playlistId: '@id' } },
+            getCount: { url: concatUrl('api/Playlist/getCount'), method: 'GET' },
+            getPaginated: { url: concatUrl('api/Playlist/getPaginated/:page'), params: { page: '@page' }, method: 'GET', isArray: true }
         })
     }]);

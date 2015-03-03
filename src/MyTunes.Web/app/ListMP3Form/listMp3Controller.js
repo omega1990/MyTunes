@@ -1,17 +1,50 @@
 ﻿
 application.controller("listMp3Controller",
-    ["$scope", "$modal", "$location", "mp3Factory", 
+    ["$scope", "$modal", "$location", "mp3Factory",
     function listMp3Controller($scope, $modal, $location, mp3Factory) {
 
-        mp3Factory.getAllSongs().$promise
+        var pageSize = 10;
+        var navButtonNumber = 0;
+        $scope.navButtonNumber = [];
+
+        mp3Factory.getCount().$promise
         .then(function (data) {
-            $scope.mp3s = data;
-            console.log("Songs fetched successfully!");
+            var count = data.Count;
+            navButtonNumber = Math.ceil(count / pageSize);
+
+            for (var i = 0; i < navButtonNumber; i++) {
+                $scope.navButtonNumber.push({});
+
+            }
+
+            $scope.getPage(0);
+
         })
         .catch(function (error) {
             console.log(error);
         });
 
+
+        $scope.getPage = function getPage(page) {
+            mp3Factory.getPaginated({ page: page }).$promise
+           .then(function (data) {
+               $scope.mp3s = data;
+               console.log("Songs fetched successfully");
+           })
+           .catch(function (error) {
+               console.log(error);
+           });
+        }
+
+
+        //mp3Factory.getAllSongs().$promise
+        //.then(function (data) {
+        //    $scope.mp3s = data;
+        //    console.log("Songs fetched successfully!");
+        //})
+        //.catch(function (error) {
+        //    console.log(error);
+        //});
 
         $scope.deleteMp3 = function deleteMp3(mp3Id) {
             $modal.open({
@@ -49,7 +82,6 @@ application.controller("listMp3Controller",
 
         }
 
-
         $scope.$on('search-event', function (event, searchQuery) {
             if (searchQuery != "") {
                 mp3Factory.getFilteredMp3s({ searchQuery: searchQuery }).$promise
@@ -72,7 +104,5 @@ application.controller("listMp3Controller",
                     });
             }
         });
-
-
 
     }]);
