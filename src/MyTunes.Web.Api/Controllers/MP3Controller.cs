@@ -43,9 +43,9 @@ namespace MyTunes.Web.Api.Controllers
         }
 
         // GET api/<controller>/5
-        public IHttpActionResult Get(int id)
+        public IHttpActionResult Get(int mp3Id)
         {
-            var mp3ToReturn = _mp3service.Get(id);
+            var mp3ToReturn = _mp3service.Get(mp3Id);
             var mp3ViewModel = new MP3ViewModel();
             Mapper.Map(mp3ToReturn, mp3ViewModel);
 

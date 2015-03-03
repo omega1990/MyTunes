@@ -41,9 +41,9 @@ namespace MyTunes.Web.Api.Controllers
         }
 
         // GET api/<controller>/5
-        public IHttpActionResult Get(int id)
+        public IHttpActionResult Get(int playlistId)
         {
-            var playlist = _playlistService.Get(id);
+            var playlist = _playlistService.Get(playlistId);
             var playlistToReturn = new PlaylistViewModel();
             Mapper.Map(playlist, playlistToReturn);
 

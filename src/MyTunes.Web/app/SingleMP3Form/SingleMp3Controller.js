@@ -1,30 +1,34 @@
 ﻿
 application.controller("singleMp3Controller",
-    ["$scope", "$location", "mp3Factory", "playlistFactory", "mp3DataService",
-    function singleMp3Controller($scope, $location, mp3Factory, playlistFactory, mp3DataService) {
-
-
-
-        $scope.mp3 = mp3DataService.getMp3();
+    ["$scope", "$location", "$routeParams", "mp3Factory", "playlistFactory",
+    function singleMp3Controller($scope, $location, $routeParams, mp3Factory, playlistFactory) {
 
         var isNew = false;
-        if ($scope.mp3 == null) isNew = true;
 
-        console.log("this is mp3");
-        console.log($scope.mp3);
-        mp3DataService.clearMp3();
+        mp3Factory.getSong({ mp3Id: $routeParams.mp3Id }).$promise
+        .then(function(data) {
+            $scope.mp3 = data;
 
-        if (isNew) {
-            $scope.mp3 = {};
-            $scope.mp3.Playlist = [];
-        }
+            if ($scope.mp3 == null) isNew = true;
 
-        playlistFactory.getAllPlaylists().$promise
-        .then(function (data) {
-            $scope.playlists = data;
-            console.log("Playlists fetched successfully!");
+            console.log("this is mp3");
+            console.log($scope.mp3);
+
+            if (isNew) {
+                $scope.mp3 = {};
+                $scope.mp3.Playlist = [];
+            }
+
+            playlistFactory.getAllPlaylists().$promise
+            .then(function (data) {
+                $scope.playlists = data;
+                console.log("Playlists fetched successfully!");
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
         })
-        .catch(function (error) {
+        .catch(function(error) {
             console.log(error);
         });
 
@@ -70,6 +74,7 @@ application.controller("singleMp3Controller",
             if (isNew) {
                 mp3Factory.createSong($scope.mp3).$promise
                 .then(function () {
+                    console.log("Song created successfully!");
                     $location.path("/");
                 })
                 .catch(function (error) {
@@ -79,6 +84,7 @@ application.controller("singleMp3Controller",
             else {
                 mp3Factory.updateSong({ id: $scope.mp3.MP3ID }, $scope.mp3).$promise
                 .then(function () {
+                    console.log("Song updated successfully!");
                     $location.path("/");
                 })
                 .catch(function (error) {

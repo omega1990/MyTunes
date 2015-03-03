@@ -21,7 +21,7 @@ application.config(["$routeProvider", "$locationProvider",
             templateUrl: "app/SingleMP3Form/singleMp3Template.html",
             controller: "singleMp3Controller"
         })
-        .when("/editMp3", {
+        .when("/editMp3/:mp3Id", {
             templateUrl: "app/SingleMP3Form/singleMp3Template.html",
             controller: "singleMp3Controller"
         })
@@ -29,7 +29,7 @@ application.config(["$routeProvider", "$locationProvider",
             templateUrl: "app/SinglePlaylistForm/singlePlaylistTemplate.html",
             controller: "singlePlaylistController"
         })
-        .when("/editPlaylist", {
+        .when("/editPlaylist/:playlistId", {
             templateUrl: "app/SinglePlaylistForm/singlePlaylistTemplate.html",
             controller: "singlePlaylistController"
         })

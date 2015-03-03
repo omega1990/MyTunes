@@ -58,7 +58,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.js" />
-    <Content Include="app\Services\playlistDataService.js" />
     <Content Include="app\SingleMP3Form\singleMp3Controller.js" />
     <Content Include="app\SingleMP3Form\singleMp3Template.html" />
     <Content Include="app\SinglePlaylistForm\singlePlaylistController.js" />
@@ -74,7 +73,6 @@
     <Content Include="app\ListPlaylistForm\listPlaylistDirective.js" />
     <Content Include="app\ListPlaylistForm\listPlaylistTemplate.html" />
     <Content Include="app\Navigation\navController.js" />
-    <Content Include="app\Services\mp3DataService.js" />
     <Content Include="app\Services\mp3Factory.js" />
     <Content Include="app\Services\playlistFactory.js" />
     <Content Include="app\Validation\validationDirective.js" />

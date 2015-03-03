@@ -14,3 +14,14 @@
 .stick-top{
     padding-top:0;
 }
+
+.playlist-songs {
+    margin-left: 10px;
+    font-size: 12px;
+    margin-bottom: 20px;
+}
+
+.playlist {
+    color:black;
+    cursor:pointer;
+}

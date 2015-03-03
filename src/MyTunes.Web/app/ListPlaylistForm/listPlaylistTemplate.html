@@ -5,8 +5,39 @@
     <th></th>
     </thead>
     <tbody>
-        <tr ng-repeat="playlist in playlists">
-            <td class="col-md-11">{{playlist.Name}}</td>
+        <tr ng-repeat="playlist in playlists track by $index">
+            <td class="col-md-11">
+                <a class="playlist" ng-click="playlistClicked($index)">
+                    {{playlist.Name}}
+                </a>
+                <span ng-show="!showSongs[$index]" class="label label-info">{{playlist.MP3.length}}</span>
+
+                <br />
+                <br />
+
+                <div ng-show="showSongs[$index]" class="playlist-songs">
+                    <div ng-repeat="mp3 in playlist.MP3 | startFrom:currentPage[$index]*pageSize | limitTo:pageSize">
+                        <div>
+                            <span>{{ $index + 1 }}.</span>
+                            <span>{{mp3.Title}}</span>
+                        </div>
+                    </div>
+
+                    <br />
+
+                    <div ng-show="playlist.MP3.length != 0">
+                        <button class="btn btn-default" ng-disabled="currentPage[$index] == 0" ng-click="currentPage[$index]=currentPage[$index]-1">
+                            <span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span>
+                        </button>
+
+                        {{currentPage[$index]+1}}/{{numberOfPages[$index]()}}
+
+                        <button class="btn btn-default" ng-disabled="currentPage[$index] >= playlist.MP3.length/pageSize - 1" ng-click="currentPage[$index]=currentPage[$index]+1">
+                            <span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span>
+                        </button>
+                    </div>
+                </div>
+            </td>
             <td class="col-md-1">
                 <button class="btn btn-default" ng-click="openEditPlaylistForm(playlist.PlaylistID)"><span class="glyphicon glyphicon-pencil"></span></button>
                 <button class="btn btn-danger" ng-click="deletePlaylist(playlist.PlaylistID)"><span class="glyphicon glyphicon-remove"></span></button>

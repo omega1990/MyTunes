@@ -14,12 +14,6 @@ application.directive('showErrors', function () {
             inputNgEl.bind('blur', function () {
                 el.toggleClass('has-error', formCtrl[inputName].$invalid);
             });
-
-            //react to the broadcasted event
-            //scope.$on('show-errors-event', function () {
-            //    el.toggleClass('has-error', formCtrl[inputName].$invalid);
-            //});
         }
     }
-
 });

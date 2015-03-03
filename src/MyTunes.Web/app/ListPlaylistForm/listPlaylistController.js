@@ -1,8 +1,8 @@
 ﻿
 
 application.controller("listPlaylistController",
-    ["$scope", "$rootScope", "$location", "$modal", "playlistFactory", "playlistDataService",
-    function listPlaylistController($scope, $rootScope, $location, $modal, playlistFactory, playlistDataService) {
+    ["$scope", "$rootScope", "$location", "$modal", "playlistFactory",
+    function listPlaylistController($scope, $rootScope, $location, $modal, playlistFactory) {
 
         playlistFactory.getAllPlaylists().$promise
             .then(function (data) {
@@ -46,17 +46,7 @@ application.controller("listPlaylistController",
         }
 
         $scope.openEditPlaylistForm = function openEditPlaylistForm(playlistId) {
-            $scope.playlistToEdit = {};
-
-            playlistFactory.getPlaylist({ id: playlistId }).$promise
-            .then(function (data) {
-                playlistDataService.setPlaylist(data);
-                console.log(data);
-                $location.path("/editPlaylist");
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+            $location.path("/editPlaylist/" + playlistId);
         }
 
         $scope.$on('search-event', function (event, searchQuery) {
@@ -82,5 +72,34 @@ application.controller("listPlaylistController",
             }
         });
 
+        // Show pagingated songs inside playlist
+        $scope.showSongs = [];
+        $scope.currentPage = [];
+        $scope.pageSize = [];
+        $scope.numberOfPages = [];
+        $scope.pageSize = 10;
+        
+        $scope.playlistClicked = function playlistClicked(index) {
+            if ($scope.showSongs[index]) {
+                console.log("setting to invisible");
+                $scope.showSongs[index] = false;
+            }
+            else {
+                if ($scope.currentPage[index] != 0) $scope.currentPage[index] = 0;
+                console.log($scope.currentPage[index]);
+                $scope.numberOfPages[index] = function () {
+                    return Math.ceil($scope.playlists[index].MP3.length / $scope.pageSize);
+                }
+
+                $scope.showSongs[index] = true;
+            }
+        };
        
     }]);
+
+application.filter('startFrom', function () {
+    return function (input, start) {
+        start = +start; 
+        return input.slice(start);
+    }
+});

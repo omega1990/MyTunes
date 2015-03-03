@@ -45,17 +45,8 @@ application.controller("listMp3Controller",
         }
 
         $scope.openEditMp3Form = function openEditMp3Form(mp3Id) {
-            $scope.mp3ToEdit = {};
+            $location.path("/editMp3/" + mp3Id);
 
-            mp3Factory.getSong({ id: mp3Id }).$promise
-            .then(function (data) {
-                mp3DataService.setMp3(data);
-                console.log(data);
-                $location.path("/editMp3");
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
         }
 
 
