@@ -11,6 +11,7 @@
     <script src="Scripts/angular-ui/ui-bootstrap-tpls.min.js"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
     <script src="Scripts/noty/jquery.noty.packaged.min.js"></script>
+    <script src="Scripts/angular-messages.min.js"></script>
 
     <script src="app/app.js"></script>
 
@@ -23,12 +24,14 @@
     
     <script src="app/Shared/Validation/validationDirective.js"></script>
     <script src="app/ListPlaylistForm/listPlaylistDirective.js"></script>
+    <script src="app/Shared/NotificationDirectives/errorDirective.js"></script>
+    <script src="app/Shared/NotificationDirectives/successDirective.js"></script>
 
     <script src="app/Shared/Services/mp3Factory.js"></script>
     <script src="app/Shared/Services/playlistFactory.js"></script>
 </head>
 <body>
-    <div class="container">
+    <div error-message success-message class="container">
         <br />
         <br />
         <br />

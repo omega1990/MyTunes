@@ -1,7 +1,7 @@
 ﻿
 application.controller("listMp3Controller",
-    ["$scope", "$modal", "$location", "mp3Factory",
-    function listMp3Controller($scope, $modal, $location, mp3Factory) {
+    ["$scope", "$rootScope", "$modal", "$location", "mp3Factory",
+    function listMp3Controller($scope, $rootScope, $modal, $location, mp3Factory) {
 
         $scope.isSearchActivated = false;
 
@@ -64,12 +64,15 @@ application.controller("listMp3Controller",
                                 break;
                             }
                         }
+                        var mp3Title = $scope.mp3s[index].Title;
                         $scope.mp3s.splice(index, 1);
                         initialize();
                         console.log("Song deleted.");
+                        $rootScope.success = "Song " + mp3Title + " deleted sucessfully";
                     })
                     .catch(function (error) {
                         console.log(error);
+                        $rootScope.error = "Error while deleting song";
                     });
                 });
         }

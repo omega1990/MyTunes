@@ -1,7 +1,7 @@
 ﻿
 application.controller("singleMp3Controller",
-    ["$scope", "$location", "$routeParams", "mp3Factory", "playlistFactory",
-    function singleMp3Controller($scope, $location, $routeParams, mp3Factory, playlistFactory) {
+    ["$scope", "$rootScope", "$location", "$routeParams", "mp3Factory", "playlistFactory",
+    function singleMp3Controller($scope, $rootScope, $location, $routeParams, mp3Factory, playlistFactory) {
 
         var isNew = true;
         $scope.mp3 = {};
@@ -16,6 +16,7 @@ application.controller("singleMp3Controller",
             })
             .catch(function (error) {
                 console.log(error);
+                $rootScope.error("Error occurred while retrieving song for editing.")
             });
         }
 
@@ -26,6 +27,7 @@ application.controller("singleMp3Controller",
         })
         .catch(function (error) {
             console.log(error);
+            $rootScope.error("Error while retrieving playlists.");
         });
 
         $scope.checkSongInPlaylist = function checkSongInPlaylist(playlist) {
@@ -71,20 +73,26 @@ application.controller("singleMp3Controller",
                 mp3Factory.createSong($scope.mp3).$promise
                 .then(function () {
                     console.log("Song created successfully!");
+                    $rootScope.success = "Song " + $scope.mp3.Title + " created successfully";
                     $location.path("/");
                 })
                 .catch(function (error) {
                     console.log(error);
+                    $rootScope.error = "Error creating song " + $scope.mp3.Title;
+                    $location.path("/");
                 });
             }
             else {
                 mp3Factory.updateSong({ id: $scope.mp3.MP3ID }, $scope.mp3).$promise
                 .then(function () {
                     console.log("Song updated successfully!");
+                    $rootScope.success = "Song " + $scope.mp3.Title + " updated successfully";
                     $location.path("/");
                 })
                 .catch(function (error) {
                     console.log(error);
+                    console.log("Error updating song " + $scope.mp3.Title);
+                    $location.path("/");
                 });
             }
         }

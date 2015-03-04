@@ -1,5 +1,5 @@
 ﻿
-var application = angular.module("application", ["ngRoute", "ngResource", "ui.bootstrap"]);
+var application = angular.module("application", ["ngRoute", "ngResource", "ngMessages", "ui.bootstrap"]);
     
 application.constant('urls', {
     webApiUrl: 'http://localhost:54152/',

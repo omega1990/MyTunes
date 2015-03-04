@@ -77,12 +77,16 @@ application.controller("listPlaylistController",
                                     break;
                                 }
                             }
+
+                            var playlistName = $scope.playlists[index].Name;
                             $scope.playlists.splice(index, 1);
                             initialize();
                             console.log("Playlist deleted successfully!");
+                            $rootScope.success = "Playlist " + playlistName + " deleted sucessfully";
                         })
                         .catch(function (error) {
                             console.log(error);
+                            $rootScope.error = "Error while deleting " + playlistName + " playlist";
                         });
                 });
         }

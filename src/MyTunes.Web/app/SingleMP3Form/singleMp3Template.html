@@ -24,7 +24,7 @@
                             <label for="artist">Artist:</label>
                             <div>
                                 <input id="artist" name="artist" class="form-control" type="text" ng-model="mp3.Artist" ng-maxlength="50" />
-                                <span class="help-block" ng-show="mp3Form.artist.$error.maxlength && mp3Form.artist.$dirty">Artist's name is too long</span>
+                                <span class="help-block" ng-show="mp3Form.artist.$error.maxlength && mp3Form.artist.$dirty || ">Artist's name is too long</span>
                             </div>
                         </div>
 
