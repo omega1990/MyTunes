@@ -4,51 +4,61 @@ application.controller("listPlaylistController",
     ["$scope", "$rootScope", "$location", "$modal", "playlistFactory",
     function listPlaylistController($scope, $rootScope, $location, $modal, playlistFactory) {
 
+        $scope.isSearchActivated = false;
 
-        var pageSize = 10;
-        var navButtonNumber = 0;
-        $scope.navButtonNumber = [];
+        var calculateNumberOfPages = function (count) {
+            var pageSize = 10;
+            var navButtonNumber = Math.ceil(count / pageSize);
 
-        playlistFactory.getCount().$promise
-        .then(function (data) {
-            var count = data.Count;
-            navButtonNumber = Math.ceil(count / pageSize);
+            $scope.navButtonNumber = [];
 
             for (var i = 0; i < navButtonNumber; i++) {
                 $scope.navButtonNumber.push({});
 
             }
-
-            $scope.getPage(0);
-
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
+        }
 
         $scope.getPage = function getPage(page) {
             playlistFactory.getPaginated({ page: page }).$promise
            .then(function (data) {
                $scope.playlists = data;
                console.log("Playlists fetched successfully");
+               $scope.isActive = page;
            })
            .catch(function (error) {
                console.log(error);
            });
         }
 
+        var initialize = function (page) {
+            page = (typeof page === "undefined") ? 0 : page;
 
-
-
-
-        playlistFactory.getAllPlaylists().$promise
+            playlistFactory.getCount().$promise
             .then(function (data) {
-                $scope.playlists = data;
-                console.log("Playlists fetched successfully!");
+                var count = data.Count;
+                calculateNumberOfPages(count);
+                $scope.getPage(0);
+
             })
             .catch(function (error) {
                 console.log(error);
             });
+        }
+
+        // Call the initial list fill
+        initialize();
+
+        $scope.getPage = function getPage(page) {
+            playlistFactory.getPaginated({ page: page }).$promise
+           .then(function (data) {
+               $scope.playlists = data;
+               console.log("Playlists fetched successfully");
+               $scope.isActive = page;
+           })
+           .catch(function (error) {
+               console.log(error);
+           });
+        }
 
         $scope.deletePlaylist = function deletePlaylist(playlistId) {
             $modal.open({
@@ -68,7 +78,7 @@ application.controller("listPlaylistController",
                                 }
                             }
                             $scope.playlists.splice(index, 1);
-
+                            initialize();
                             console.log("Playlist deleted successfully!");
                         })
                         .catch(function (error) {
@@ -88,9 +98,9 @@ application.controller("listPlaylistController",
 
         $scope.$on('search-event', function (event, searchQuery) {
             if (searchQuery != "") {
+                $scope.isSearchActivated = true;
                 playlistFactory.getFilteredPlaylists({ searchQuery: searchQuery }).$promise
                 .then(function (data) {
-                    console.log("Filtered!");
                     $scope.playlists = data;
                 })
                 .catch(function (error) {
@@ -98,18 +108,12 @@ application.controller("listPlaylistController",
                 });
             }
             else {
-                playlistFactory.getAllPlaylists().$promise
-                    .then(function (data) {
-                        $scope.playlists = data;
-                        console.log("Playlists fetched successfully!");
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
+                $scope.isSearchActivated = false;
+                $scope.getPage(0);
             }
         });
 
-        // Show paginated songs inside playlist
+        // Show songs paginated inside playlist
         $scope.showSongs = [];
         $scope.currentPage = [];
         $scope.pageSize = [];
@@ -118,7 +122,6 @@ application.controller("listPlaylistController",
 
         $scope.playlistClicked = function playlistClicked(index) {
             if ($scope.showSongs[index]) {
-                console.log("setting to invisible");
                 $scope.showSongs[index] = false;
             }
             else {

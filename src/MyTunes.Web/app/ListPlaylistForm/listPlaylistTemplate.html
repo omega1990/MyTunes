@@ -7,12 +7,17 @@
     <tbody>
         <tr ng-repeat="playlist in playlists track by $index">
             <td class="col-md-11">
-                
+
                 <playlist-data></playlist-data>
 
-                <div ng-show="showSongs[$index]" class="playlist-songs">
-                    <mp3-data></mp3-data>
-                    <mp3-page-navigation></mp3-page-navigation>
+                <div ng-show="showSongs[$index]" class="playlist-panel panel panel-primary">
+                    <div class="panel-heading">
+                        Songs in playlist
+                    </div>
+                    <div class="panel-body playlist-songs">
+                        <mp3-data></mp3-data>
+                        <mp3-page-navigation></mp3-page-navigation>
+                    </div>
                 </div>
 
             </td>
@@ -26,13 +31,13 @@
 
 <!-- Pagination -->
 <nav>
-    <ul class="pagination">
+    <ul ng-hide="isSearchActivated" class="pagination">
         <li>
             <a href="#" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
             </a>
         </li>
-        <li class="pagination-item" ng-repeat="button in navButtonNumber track by $index" ng-click="getPage($index)"><a>{{$index+1}}</a></li>
+        <li class="pagination-item" ng-repeat="button in navButtonNumber track by $index" ng-click="getPage($index)"><a ng-class="{'pagination-item-active': isActive == $index}">{{$index+1}}</a></li>
         <li>
             <a href="#" aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>

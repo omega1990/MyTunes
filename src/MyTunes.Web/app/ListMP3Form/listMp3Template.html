@@ -1,12 +1,12 @@
 ﻿
 <table class="slide table table-striped table-condensed table-hover">
     <thead>
-        <th>Title</th>
-        <th>Artist</th>
-        <th>Album</th>
-        <th>Year</th>
-        <th>Playlists</th>
-        <th></th>
+    <th>Title</th>
+    <th>Artist</th>
+    <th>Album</th>
+    <th>Year</th>
+    <th>Playlists</th>
+    <th></th>
     </thead>
     <tbody>
         <tr ng-repeat="song in mp3s">
@@ -34,13 +34,15 @@
 
 <!-- Pagination -->
 <nav>
-    <ul class="pagination">
+    <ul ng-hide="isSearchActivated" class="pagination">
         <li>
             <a href="#" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
             </a>
         </li>
-        <li class="pagination-item" ng-repeat="button in navButtonNumber track by $index" ng-click="getPage($index)"><a>{{$index+1}}</a></li>
+        <li class="pagination-item" ng-repeat="button in navButtonNumber track by $index" ng-click="getPage($index)">
+            <a ng-class="{'pagination-item-active': isActive == $index}">{{$index+1}}</a>
+        </li>
         <li>
             <a href="#" aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
