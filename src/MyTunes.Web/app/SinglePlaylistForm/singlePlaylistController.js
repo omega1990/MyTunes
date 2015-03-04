@@ -1,8 +1,8 @@
 ﻿
 
 application.controller("singlePlaylistController",
-    ["$scope", "$location", "$routeParams", "mp3Factory", "playlistFactory",
-    function singlePlaylistController($scope, $location, $routeParams, mp3Factory, playlistFactory) {
+    ["$scope", "$rootScope", "$location", "$routeParams", "mp3Factory", "playlistFactory",
+    function singlePlaylistController($scope, $rootScope, $location, $routeParams, mp3Factory, playlistFactory) {
 
         var isNew = true;
 
@@ -85,7 +85,11 @@ application.controller("singlePlaylistController",
             if (isNew) {
                 playlistFactory.createPlaylist($scope.playlist).$promise
                 .then(function () {
+
+                    console.log("Playlist " + $scope.playlist.Name + " created succesfully");
+                    $rootScope.success = "Playlist " + $scope.playlist.Name + " created successfully";
                     $location.path("/playlist");
+                    
                 });
             }
             else {
