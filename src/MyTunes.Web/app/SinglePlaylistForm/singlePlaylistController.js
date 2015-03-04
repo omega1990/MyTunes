@@ -84,17 +84,27 @@ application.controller("singlePlaylistController",
 
             if (isNew) {
                 playlistFactory.createPlaylist($scope.playlist).$promise
-                .then(function () {
-
+                .then(function() {
                     console.log("Playlist " + $scope.playlist.Name + " created succesfully");
                     $rootScope.success = "Playlist " + $scope.playlist.Name + " created successfully";
                     $location.path("/playlist");
-                    
+                })
+                .catch(function(error){
+                    console.log(error);
+                    $rootScope.error = "Error while creating " + $scope.playlist.Name + " playlist";
+                    $location.path("/playlist");
                 });
             }
             else {
                 playlistFactory.updatePlaylist({ playlistId: $scope.playlist.PlaylistID }, $scope.playlist).$promise
-                .then(function () {
+                .then(function() {
+                    console.log("Playlist " + $scope.playlist.Name + " updated succesfully");
+                    $rootScope.success = "Playlist " + $scope.playlist.Name + " updated successfully";
+                    $location.path("/playlist");
+                })
+                .catch(function(error){
+                    console.log(error);
+                    $rootScope.success = "Error while creating " + $scope.playlist.Name + " playlist";
                     $location.path("/playlist");
                 });
             }

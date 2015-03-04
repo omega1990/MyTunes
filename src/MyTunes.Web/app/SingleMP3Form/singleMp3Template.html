@@ -10,43 +10,48 @@
                     <form class="form-horizontal">
 
                         <!-- Title -->
-                        <div class="field" show-errors>
+                        <div class="form-group">
                             <label for="title">Title:</label>
                             <div>
                                 <input id="title" name="title" class="form-control" type="text" ng-model="mp3.Title" ng-maxlength="50" required />
-                                <!--<span class="help-block" ng-show="mp3Form.title.$error.required && mp3Form.title.$dirty">Title is required</span>
-                                <span class="help-block" ng-show="mp3Form.title.$error.maxlength && mp3Form.title.$dirty">Title is too long</span>-->
-                                <div ng-messages="mp3Form.title.$error" ng-if='mp3Form.title.$dirty'>
-                                    <div ng-message="required" class="ng-scope">Title is required. </div>
+                                <div class="error-messages" ng-if="interacted(mp3Form.title)" ng-messages="mp3Form.title.$error">
+                                    <div ng-message="required">Title is required. </div>
                                     <div ng-message="maxlength">Your title is too long. </div>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Artist -->
-                        <div class="form-group" show-errors>
+                        <div class="form-group">
                             <label for="artist">Artist:</label>
                             <div>
                                 <input id="artist" name="artist" class="form-control" type="text" ng-model="mp3.Artist" ng-maxlength="50" />
-                                <!--<span class="help-block" ng-show="mp3Form.artist.$error.maxlength && mp3Form.artist.$dirty || ">Artist's name is too long</span>-->
+                                <div class="error-messages" ng-if="interacted(mp3Form.artist)" ng-messages="mp3Form.artist.$error">
+                                    <div ng-message="maxlength">Artist's name is too long. </div>
+                                </div>
                             </div>
                         </div>
 
                         <!-- Album -->
-                        <div class="form-group" show-errors>
+                        <div class="form-group">
                             <label for="album">Album:</label>
                             <div>
                                 <input id="album" name="album" class="form-control" type="text" ng-model="mp3.Album" ng-maxlength="50" />
-                                <!--<span class="help-block" ng-show="mp3Form.album.$error.maxlength && mp3Form.album.$dirty">Album name is too long</span>-->
+                                <div class="error-messages" ng-if="interacted(mp3Form.album)" ng-messages="mp3Form.album.$error">
+                                    <div ng-message="maxlength">Album name is too long. </div>
+                                </div>
                             </div>
                         </div>
 
                         <!-- Year -->
-                        <div class="form-group" show-errors>
+                        <div class="form-group">
                             <label for="year">Year:</label>
                             <div>
-                                <input id="year" name="year" class="form-control" type="number" ng-model="mp3.Year" ng-maxlength="5" />
-                                <!--<span class="help-block" ng-show="mp3Form.year.$invalid && mp3Form.year.$dirty">Please enter the year in yyyy format</span>-->
+                                <input id="year" name="year" class="form-control" type="number" ng-model="mp3.Year" ng-pattern="/^[0-9]{1,5}$/"/>
+                                <div class="error-messages" ng-if="interacted(mp3Form.year)" ng-messages="mp3Form.year.$error">
+                                    <div ng-message="pattern">Please enter the year in yyyy format</div>
+                                    <div ng-message="number">Please enter the year in yyyy format</div>
+                                </div>
                             </div>
                         </div>
                     </form>

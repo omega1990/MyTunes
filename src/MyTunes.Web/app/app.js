@@ -9,7 +9,7 @@ application.constant('urls', {
 application.config(["$routeProvider", "$locationProvider",
     function ($routeProvider, $locationProvider) {
         $routeProvider
-        .when("/mp3", {
+        .when("/mp3/page/:page", {
             templateUrl: "app/ListMP3form/listMp3Template.html",
             controller: "listMp3Controller"
         })
@@ -35,7 +35,7 @@ application.config(["$routeProvider", "$locationProvider",
         })
 
         .otherwise({
-            redirectTo: "/mp3"
+            redirectTo: "/mp3/page/1"
         });
 
         //$httpProvider.defaults.headers.post['Content-Type'] = 'application/json';

@@ -37,7 +37,7 @@
                 <span aria-hidden="true">&laquo;</span>
             </a>
         </li>
-        <li class="pagination-item" ng-repeat="button in navButtonNumber track by $index" ng-click="getPage($index)"><a ng-class="{'pagination-item-active': isActive == $index}">{{$index+1}}</a></li>
+        <li class="pagination-item" ng-repeat="button in navButtonNumber track by $index" ng-click="getPage($index)"><a ng-class="{'pagination-item-active': currentPlaylistPage == $index}">{{$index+1}}</a></li>
         <li>
             <a href="#" aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
@@ -48,7 +48,7 @@
 
 
 
-<button class="input-block-level form-control container btn btn-custom-primary" ng-click="openCreatePlaylistForm()">
+<button class="input-block-level form-control container btn btn-primary" ng-click="openCreatePlaylistForm()">
     <span class="glyphicon glyphicon-plus"></span>
 </button>
 

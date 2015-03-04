@@ -6,6 +6,7 @@ application.controller("listPlaylistController",
 
         $scope.isSearchActivated = false;
 
+        // Page getting logic - START
         var calculateNumberOfPages = function (count) {
             var pageSize = 10;
             var navButtonNumber = Math.ceil(count / pageSize);
@@ -19,11 +20,12 @@ application.controller("listPlaylistController",
         }
 
         $scope.getPage = function getPage(page) {
+            if ($scope.navButtonNumber.length <= page) page = $scope.navButtonNumber.length - 1;
             playlistFactory.getPaginated({ page: page }).$promise
            .then(function (data) {
                $scope.playlists = data;
                console.log("Playlists fetched successfully");
-               $scope.isActive = page;
+               $scope.currentPlaylistPage = page;
            })
            .catch(function (error) {
                console.log(error);
@@ -37,7 +39,7 @@ application.controller("listPlaylistController",
             .then(function (data) {
                 var count = data.Count;
                 calculateNumberOfPages(count);
-                $scope.getPage(0);
+                $scope.getPage(page);
 
             })
             .catch(function (error) {
@@ -45,21 +47,9 @@ application.controller("listPlaylistController",
             });
         }
 
-        // Call the initial list fill
         initialize();
-
-        $scope.getPage = function getPage(page) {
-            playlistFactory.getPaginated({ page: page }).$promise
-           .then(function (data) {
-               $scope.playlists = data;
-               console.log("Playlists fetched successfully");
-               $scope.isActive = page;
-           })
-           .catch(function (error) {
-               console.log(error);
-           });
-        }
-
+        // Page getting logic - END
+       
         $scope.deletePlaylist = function deletePlaylist(playlistId) {
             $modal.open({
                 templateUrl: 'app/ListPlaylistForm/DeleteModalWindow/modalTemplate.html',
@@ -80,7 +70,7 @@ application.controller("listPlaylistController",
 
                             var playlistName = $scope.playlists[index].Name;
                             $scope.playlists.splice(index, 1);
-                            initialize();
+                            initialize($scope.currentPlaylistPage);
                             console.log("Playlist deleted successfully!");
                             $rootScope.success = "Playlist " + playlistName + " deleted sucessfully";
                         })
@@ -100,6 +90,7 @@ application.controller("listPlaylistController",
             $location.path("/editPlaylist/" + playlistId);
         }
 
+        // React on the change inside the search textbox
         $scope.$on('search-event', function (event, searchQuery) {
             if (searchQuery != "") {
                 $scope.isSearchActivated = true;
@@ -117,7 +108,7 @@ application.controller("listPlaylistController",
             }
         });
 
-        // Show songs paginated inside playlist
+        // Show songs paginated inside the playlist
         $scope.showSongs = [];
         $scope.currentPage = [];
         $scope.pageSize = [];

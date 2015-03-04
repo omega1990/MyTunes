@@ -63,8 +63,11 @@ application.controller("singleMp3Controller",
             }
         };
 
+        $scope.interacted = function (field) { return $scope.submitted || field.$dirty; };
+
         $scope.submitData = function submitData() {
             console.log($scope.mp3);
+            $scope.submitted = true;
 
             if ($scope.mp3Form.$invalid)
                 return;
