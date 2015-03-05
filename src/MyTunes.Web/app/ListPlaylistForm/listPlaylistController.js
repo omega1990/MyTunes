@@ -1,68 +1,31 @@
 ﻿
 
 application.controller("listPlaylistController",
-    ["$scope", "$rootScope", "$location", "$routeParams",  "$modal", "playlistFactory",
-    function listPlaylistController($scope, $rootScope, $location, $routeParams, $modal, playlistFactory) {
+    ["$scope", "$rootScope", "$location", "$route", "$routeParams", "$modal", "playlistFactory",
+    function listPlaylistController($scope, $rootScope, $location, $route, $routeParams, $modal, playlistFactory) {
 
         $scope.isSearchActivated = false;
 
-        $scope.nextActive = true;
-        $scope.previousActive = true;
-        $scope.currentPageItem = 0;
-
-        // Page getting logic - START
-        var calculateNumberOfPages = function (count) {
-            var pageSize = 10;
-            var navButtonNumber = Math.ceil(count / pageSize);
-
-            $scope.navButtonNumber = [];
-            for (var i = 0; i < navButtonNumber; i++) {
-                $scope.navButtonNumber.push({});
-
-            }
-        }
+        playlistFactory.getPaginated({ page: $routeParams.page - 1 }).$promise
+        .then(function (data) {
+            if (data.CurrentPage >= data.Pages.length) $location.path("playlist/page/" + data.Pages.length);
+            $scope.playlists = data.PagedData;
+            $scope.navButtonNumber = data.Pages;
+            $scope.currentPageItem = data.CurrentPage;
+            console.log($scope.currentPageItem);
+            $scope.nextActive = data.NextActive;
+            $scope.previousActive = data.PreviousActive;
+        })
+        .catch(function (error) {
+            console.log(error);
+            $rootScope.error = "Error occured while getting playlists";
+        });
 
         $scope.routePage = function routePage(page) {
             page++;
             $location.path("playlist/page/" + page);
         };
 
-        $scope.getPage = function getPage(page) {
-            if ($scope.navButtonNumber.length <= page) page = $scope.navButtonNumber.length - 1;
-            playlistFactory.getPaginated({ page: page }).$promise
-           .then(function (data) {
-               $scope.playlists = data;
-               console.log("Playlists fetched successfully");
-               $scope.currentPlaylistPage = page;
-               $scope.currentPageItem = $scope.currentPlaylistPage + 1;
-           })
-           .catch(function (error) {
-               console.log(error);
-           });
-        }
-
-        var initialize = function (page) {
-            page = (typeof page === "undefined") ? 0 : page;
-
-            playlistFactory.getCount().$promise
-            .then(function (data) {
-                var count = data.Count;
-                calculateNumberOfPages(count);
-
-                if (page <= 0) $scope.previousActive = false;
-                if (page >= $scope.navButtonNumber.length - 1) $scope.nextActive = false;
-
-                $scope.getPage(page);
-
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-        }
-
-        initialize($routeParams.page - 1);
-        // Page getting logic - END
-       
         $scope.deletePlaylist = function deletePlaylist(playlistId) {
             $modal.open({
                 templateUrl: 'app/ListPlaylistForm/DeleteModalWindow/modalTemplate.html',
@@ -83,9 +46,9 @@ application.controller("listPlaylistController",
 
                             var playlistName = $scope.playlists[index].Name;
                             $scope.playlists.splice(index, 1);
-                            initialize($scope.currentPlaylistPage);
                             console.log("Playlist deleted successfully!");
                             $rootScope.success = "Playlist " + playlistName + " deleted sucessfully";
+                            $route.reload();
                         })
                         .catch(function (error) {
                             console.log(error);
@@ -117,7 +80,7 @@ application.controller("listPlaylistController",
             }
             else {
                 $scope.isSearchActivated = false;
-                $scope.getPage(0);
+                $route.reload();
             }
         });
 
@@ -145,9 +108,3 @@ application.controller("listPlaylistController",
 
     }]);
 
-application.filter('startFrom', function () {
-    return function (input, start) {
-        start = +start;
-        return input.slice(start);
-    }
-});

@@ -1,7 +1,6 @@
 ﻿
-application.factory('mp3Factory',
-    ['$resource', 'urls',
-    function ($resource, urls) {
+application.factory('paginationFactory',[
+    function () {
 
         var webApiUrl = urls.webApiUrl;
         var concatUrl = function (appendingUrl) {
@@ -12,7 +11,7 @@ application.factory('mp3Factory',
 
         return $resource(concatUrl('api/MP3/:id'), {}, {
             getAllSongs: { method: 'GET', isArray: true },
-            getSong: { method: 'GET', params: { mp3Id: '@id'}, isArray: false},
+            getSong: { method: 'GET', params: { mp3Id: '@id' }, isArray: false },
             deleteSong: { method: 'DELETE', params: { mp3Id: '@id' } },
             createSong: { method: 'POST' },
             updateSong: { method: 'PUT', params: { mp3Id: '@id' } },
@@ -20,7 +19,7 @@ application.factory('mp3Factory',
             getSongsNotInPlaylist: { url: concatUrl('api/MP3/getNotInPlaylist/:playlistId'), method: 'GET', params: { playlistId: '@playlistId' }, isArray: true },
             getFilteredMp3s: { url: concatUrl('api/MP3/getFiltered/:searchQuery'), method: 'GET', params: { searchQuery: '@searchQuery' }, isArray: true },
             getCount: { url: concatUrl('api/MP3/getCount'), method: 'GET' },
-            getPaginated: { url: concatUrl('api/MP3/getPaginated/:page'), params: { page: '@page' }, method: 'GET', isArray: false }
+            getPaginated: { url: concatUrl('api/MP3/getPaginated/:page'), params: { page: '@page' }, method: 'GET', isArray: true }
 
-    })
-}]);
+        })
+    }]);

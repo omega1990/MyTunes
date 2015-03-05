@@ -67,6 +67,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MyTunesDbModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="EntityModel\PagedModel.cs" />
     <Compile Include="EntityModel\Playlist.cs">
       <DependentUpon>MyTunesDbModel.tt</DependentUpon>
     </Compile>

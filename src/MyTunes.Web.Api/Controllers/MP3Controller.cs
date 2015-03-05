@@ -71,7 +71,6 @@ namespace MyTunes.Web.Api.Controllers
             return Ok(mp3sToReturn);
         }
 
-
         [HttpGet]
         [Route("api/MP3/getFiltered/{searchQuery}")]
         public IHttpActionResult GetFiltered(string searchQuery)
@@ -86,18 +85,11 @@ namespace MyTunes.Web.Api.Controllers
         [Route("api/MP3/getPaginated/{page:int}")]
         public IHttpActionResult GetPaginated(int page)
         {
-            int pageSize = 10;
-            var mp3s = _mp3service.GetAll();
-            var mp3sToReturn = new List<MP3ViewModel>();
-            Mapper.Map(mp3s, mp3sToReturn);
+            var pagedData = _mp3service.GetPaged(page);
+            var pagedDataToReturn = new PagedViewModel<MP3>();
+            Mapper.Map(pagedData, pagedDataToReturn);
 
-
-            mp3sToReturn = mp3sToReturn
-                .Skip(page * pageSize)
-                .Take(pageSize)
-                .ToList();
-
-            return Ok(mp3sToReturn);
+            return Ok(pagedDataToReturn);
         }
 
         [HttpGet]

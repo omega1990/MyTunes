@@ -1,74 +1,102 @@
 ﻿
 
 <form name="playlistForm" role="form" novalidate>
-            <div class="row">
-                <div class="container">
-                    <div class="col-sm-6">
-                        <fieldset>
-                            <legend>
-                                Playlist
-                            </legend>
+    <div class="row">
+        <div class="container">
+            <div class="col-sm-6">
+                <fieldset>
 
-                            <!-- Name -->
-                            <div class="form-group">
-                                <label for="name">Name:</label>
-                                <div>
-                                    <input id="name" name="name" class="form-control" type="text" ng-model="playlist.Name" ng-maxlength="50" required/>
-                                    <div class="error-messages" ng-if="interacted(playlistForm.name)" ng-messages="playlistForm.name.$error">
-                                        <div ng-message="required">Name is required. </div>
-                                        <div ng-message="maxlength">Your title is too long. </div>
-                                    </div>
-                                </div>
+                    <legend>
+                        Playlist
+                    </legend>
+
+                    <!-- Name -->
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <div>
+                            <input id="name" name="name" class="form-control" type="text" ng-model="playlist.Name" ng-maxlength="50" required />
+                            <div class="error-messages" ng-if="interacted(playlistForm.name)" ng-messages="playlistForm.name.$error">
+                                <div ng-message="required">Name is required. </div>
+                                <div ng-message="maxlength">Your title is too long. </div>
                             </div>
-
-                            <!-- MP3s in playlist -->
-                            <table class="slide table table-striped table-condensed table-hover">
-                                <thead>
-                                <th>Title</th>
-                                <th>Artist</th>
-                                <th></th>
-                                </thead>
-                                <tbody>
-                                    <tr ng-repeat="song in playlist.MP3">
-                                        <td>{{song.Title}}</td>
-                                        <td>{{song.Artist}}</td>
-                                        <td class="col-md-1">
-                                            <button class="btn btn-danger" ng-click="removeFromPlaylist(song)"><span class="glyphicon glyphicon-remove"></span></button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-
-                        </fieldset>
+                        </div>
                     </div>
-                    <div class="col-sm-6 pull-right">
-                        <fieldset>
-                            <legend>
-                                Songs To Add
-                            </legend>
 
-                            <!-- MP3s not in playlist -->
-                            <table class="slide table table-striped table-condensed table-hover">
-                                <thead>
-                                <th>Title</th>
-                                <th>Artist</th>
-                                <th></th>
-                                </thead>
-                                <tbody>
-                                    <tr ng-repeat="song in mp3s">
-                                        <td>{{song.Title}}</td>
-                                        <td>{{song.Artist}}</td>
-                                        <td class="col-md-1">
-                                            <button class="input-block-level form-control container btn btn-custom-primary" ng-click="addToPlaylist(song)">
-                                                <span class="glyphicon glyphicon-plus"></span>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </fieldset>
+                    <!-- MP3s in playlist -->
+                    <table class="slide table table-striped table-condensed table-hover">
+                        <thead>
+                        <th>Title</th>
+                        <th>Artist</th>
+                        <th></th>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="song in playlist.MP3 | startFrom:currentIpPage*pageSize | limitTo:pageSize" ">
+                                <td>{{song.Title}}</td>
+                                <td>{{song.Artist}}</td>
+                                <td class="col-md-1">
+                                    <button class="btn btn-danger" ng-click="removeFromPlaylist(song)"><span class="glyphicon glyphicon-remove"></span></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div ng-hide="playlist.MP3.length==0" style="text-align: center">
+                        <button class="btn btn-default" ng-disabled="currentIpPage == 0" ng-click="currentIpPage=currentIpPage-1">
+                            <span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span>
+                        </button>
+
+                        {{currentIpPage+1}}/{{numberOfIpPages()}}
+
+                        <button class="btn btn-default" ng-disabled="currentIpPage >= playlist.MP3.length/pageSize - 1" ng-click="currentIpPage=currentNipPage+1">
+                            <span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span>
+                        </button>
                     </div>
-                </div>
+
+                </fieldset>
             </div>
+        
+        <div class="col-sm-6 pull-right">
+            <fieldset>
+                <legend>
+                    Songs To Add
+                </legend>
+
+                <!-- MP3s not in playlist -->
+                <table class="slide table table-striped table-condensed table-hover">
+                    <thead>
+                    <th>Title</th>
+                    <th>Artist</th>
+                    <th></th>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="song in mp3s | startFrom:currentNipPage*pageSize | limitTo:pageSize">
+                            <td>{{song.Title}}</td>
+                            <td>{{song.Artist}}</td>
+                            <td class="col-md-1">
+                                <button class="input-block-level form-control container btn btn-custom-primary" ng-click="addToPlaylist(song)">
+                                    <span class="glyphicon glyphicon-plus"></span>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div ng-hide="mp3s.length==0" style="text-align: center">
+                    <button class="btn btn-default" ng-disabled="currentNipPage == 0" ng-click="currentNipPage=currentNipPage-1">
+                        <span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span>
+                    </button>
+
+                    {{currentNipPage+1}}/{{numberOfNipPages()}}
+
+                    <button class="btn btn-default" ng-disabled="currentNipPage >= mp3s.length/pageSize - 1" ng-click="currentNipPage=currentNipPage+1">
+                        <span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span>
+                    </button>
+                </div>
+
+            </fieldset>
+        </div>
+    </div>
+    </div>
+    <br />
     <button ng-click="submitData()" type="submit" class="input-block-level form-control btn btn-primary">Submit</button>
 </form>

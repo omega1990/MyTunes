@@ -14,6 +14,7 @@ namespace MyTunes.Services.ServiceContracts
         IList<MP3> GetInPlaylist(int playlistID);
         IList<MP3> GetNotInPlaylist(int playlistID);
         IList<MP3> GetFiltered(string searchQuery);
+        PagedModel<MP3> GetPaged(int page);
         MP3 Get(int id);
         void Create(MP3 entity);
         void Update(MP3 entity);

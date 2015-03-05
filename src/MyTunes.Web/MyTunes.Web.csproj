@@ -61,8 +61,10 @@
     <Content Include="app\ListPlaylistForm\DirectivesTemplates\mp3DataTemplate.html" />
     <Content Include="app\ListPlaylistForm\DirectivesTemplates\mp3PagingTemplate.html" />
     <Content Include="app\ListPlaylistForm\DirectivesTemplates\playlistDataTemplate.html" />
+    <Content Include="app\Shared\Filters\paginationFilter.js" />
     <Content Include="app\Shared\NotificationDirectives\errorDirective.js" />
     <Content Include="app\Shared\NotificationDirectives\successDirective.js" />
+    <Content Include="app\Shared\Services\paginationFactory.js" />
     <Content Include="app\SingleMP3Form\singleMp3Controller.js" />
     <Content Include="app\SingleMP3Form\singleMp3Template.html" />
     <Content Include="app\SinglePlaylistForm\singlePlaylistController.js" />

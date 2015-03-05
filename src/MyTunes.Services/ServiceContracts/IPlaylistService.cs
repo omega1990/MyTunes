@@ -12,6 +12,7 @@ namespace MyTunes.Services.ServiceContracts
         IList<Playlist> GetAll();
         Playlist Get(int id);
         IList<Playlist> GetFiltered(string searchQuery);
+        PagedModel<Playlist> GetPaged(int page);
         void Create(Playlist entity);
         void Update(Playlist entity);
         void Delete(int id);

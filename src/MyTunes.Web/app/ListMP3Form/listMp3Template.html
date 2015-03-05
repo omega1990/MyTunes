@@ -41,7 +41,7 @@
             </a>
         </li>
         <li class="pagination-item" ng-repeat="button in navButtonNumber track by $index" ng-click="routePage($index)">
-            <a ng-class="{'pagination-item-active': currentSongPage == $index}">{{$index+1}}</a>
+            <a ng-class="{'pagination-item-active': currentPageItem == $index + 1}">{{$index+1}}</a>
         </li>
         <li ng-show="nextActive">
             <a href="#/mp3/page/{{currentPageItem + 1}}" aria-label="Next">

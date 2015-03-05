@@ -30,7 +30,7 @@ namespace MyTunes.Services
 
         public MP3 Get(int id)
         {
-            return _repository.Get(x => x.MP3ID.Equals(id)); 
+            return _repository.Get(x => x.MP3ID.Equals(id));
         }
 
         public IList<MP3> GetInPlaylist(int playlistID)
@@ -59,7 +59,7 @@ namespace MyTunes.Services
                 {
                     mp3sNotInPlaylist.Remove(mp3);
                 }
-                
+
                 return mp3sNotInPlaylist;
             }
             return null;
@@ -70,7 +70,7 @@ namespace MyTunes.Services
             var mp3s = _repository.GetAll();
             var queriedMp3s = new List<MP3>();
 
-            if(!String.IsNullOrEmpty(searchQuery))
+            if (!String.IsNullOrEmpty(searchQuery))
             {
                 searchQuery = searchQuery.ToLower();
                 foreach (var mp3 in mp3s)
@@ -84,18 +84,18 @@ namespace MyTunes.Services
                         }
                     }
 
-                    if(mp3.Artist != null)
+                    if (mp3.Artist != null)
                     {
-                        if(mp3.Artist.ToLower().Contains(searchQuery))
+                        if (mp3.Artist.ToLower().Contains(searchQuery))
                         {
                             queriedMp3s.Add(mp3);
                             continue;
                         }
                     }
 
-                    foreach(var playlist in mp3.Playlist)
+                    foreach (var playlist in mp3.Playlist)
                     {
-                        if(playlist.Name.ToLower().Contains(searchQuery))
+                        if (playlist.Name.ToLower().Contains(searchQuery))
                         {
                             queriedMp3s.Add(mp3);
                             break;
@@ -106,10 +106,44 @@ namespace MyTunes.Services
             return queriedMp3s;
         }
 
+        public PagedModel<MP3> GetPaged(int page)
+        {
+            int pageSize = 10;
+            var mp3s = GetAll();
+            var mp3sPaged = mp3s
+                .Skip(page * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            var pagesCount = (int)Math.Ceiling((double)mp3s.Count / (double)pageSize);
+            IList<int> pages = new List<int>();
+
+            for (int i = 0; i < pagesCount; i++)
+                pages.Add(0);
+
+            var nextActive = true;
+            var previousActive = true;
+
+            page++;
+            if (page <= 1)
+            {
+                page = 1;
+                previousActive = false;
+            }
+            if (page >= pages.Count)
+            {
+                page = pages.Count;
+                nextActive = false;
+            }
+
+            var pagedData = new PagedModel<MP3>(mp3sPaged, pages, page, nextActive, previousActive);
+            return pagedData;
+        }
+
         public void Create(MP3 entity)
         {
             IList<Playlist> attachedPlaylists = new List<Playlist>();
-            foreach(var playlist in entity.Playlist)
+            foreach (var playlist in entity.Playlist)
             {
                 attachedPlaylists.Add(_uow.PlaylistRepository.GetAll().FirstOrDefault(x => x.PlaylistID == playlist.PlaylistID));
             }

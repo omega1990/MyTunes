@@ -65,18 +65,11 @@ namespace MyTunes.Web.Api.Controllers
         [Route("api/Playlist/getPaginated/{page:int}")]
         public IHttpActionResult GetPaginated(int page)
         {
-            int pageSize = 10;
-            var playlists = _playlistService.GetAll();
-            var playlistsToReturn = new List<PlaylistViewModel>();
-            Mapper.Map(playlists, playlistsToReturn);
+            var pagedData = _playlistService.GetPaged(page);
+            var pagedDataToReturn = new PagedViewModel<Playlist>();
+            Mapper.Map(pagedData, pagedDataToReturn);
 
-
-            playlistsToReturn = playlistsToReturn
-                .Skip(page * pageSize)
-                .Take(pageSize)
-                .ToList();
-
-            return Ok(playlistsToReturn);
+            return Ok(pagedDataToReturn);
         }
 
         [HttpGet]
@@ -86,9 +79,6 @@ namespace MyTunes.Web.Api.Controllers
             var playlists = _playlistService.GetAll();
             return Ok(new { Count = playlists.Count });
         }
-
-
-
 
         // POST api/<controller>
         public IHttpActionResult Post([FromBody]PlaylistViewModel playlist)

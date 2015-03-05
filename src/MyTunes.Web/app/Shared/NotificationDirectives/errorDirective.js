@@ -5,7 +5,7 @@ application.directive('errorMessage',
             return {
                 restrict: 'A',
                 link: function (scope, elem, attrs) {
-                    scope.$on('error', function (newValue, oldValue) {
+                    scope.$watch('error', function (newValue, oldValue) {
                         if (newValue != undefined) {
                             var notification = noty({ text: newValue, layout: 'bottomRight', type: 'error',  });
 

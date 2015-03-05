@@ -54,6 +54,40 @@ namespace MyTunes.Services
             return queriedPlaylists;
         }
 
+        public PagedModel<Playlist> GetPaged(int page)
+        {
+            int pageSize = 10;
+            var playlists = GetAll();
+            var playlistsPaged = playlists
+                .Skip(page * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            var pagesCount = (int)Math.Ceiling((double)playlists.Count / (double)pageSize);
+            IList<int> pages = new List<int>();
+
+            for (int i = 0; i < pagesCount; i++)
+                pages.Add(0);
+
+            var nextActive = true;
+            var previousActive = true;
+
+            page++;
+            if (page <= 1)
+            {
+                page = 1;
+                previousActive = false;
+            }
+            if (page >= pages.Count)
+            {
+                page = pages.Count;
+                nextActive = false;
+            }
+
+            var pagedData = new PagedModel<Playlist>(playlistsPaged, pages, page, nextActive, previousActive);
+            return pagedData;
+        }
+
         public void Create(Playlist entity)
         {
             IList<MP3> attachedMp3s = new List<MP3>();

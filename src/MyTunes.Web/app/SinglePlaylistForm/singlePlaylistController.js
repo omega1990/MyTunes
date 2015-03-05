@@ -5,14 +5,32 @@ application.controller("singlePlaylistController",
     function singlePlaylistController($scope, $rootScope, $location, $routeParams, mp3Factory, playlistFactory) {
 
         var isNew = true;
+        $scope.pageSize = 10;
+
+        // Variables for the songs to add paging
+        $scope.currentNipPage = 0;
+        $scope.mp3s = [];
+        $scope.numberOfNipPages = function () {
+            return Math.ceil($scope.mp3s.length / $scope.pageSize);
+        }
+
+        // Variables for the songs in playlist paging
+        $scope.currentIpPage = 0;
+        $scope.playlist = {};
+        $scope.playlist.MP3 = [];
+        $scope.numberOfIpPages = function () {
+            return Math.ceil($scope.playlist.MP3.length / $scope.pageSize);
+        }
 
         var getAllSongs = function () {
             mp3Factory.getAllSongs().$promise
                     .then(function (data) {
                         $scope.mp3s = data;
+                        
                     })
                     .catch(function (error) {
                         console.log(error);
+                        $rootScope.error = "Error while getting songs to add";
                     });
         }
 
@@ -112,6 +130,9 @@ application.controller("singlePlaylistController",
                 });
             }
         }
+
+        
+
 
 
     }]);

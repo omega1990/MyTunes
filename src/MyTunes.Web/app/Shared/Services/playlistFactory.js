@@ -18,6 +18,6 @@ application.factory('playlistFactory',
             createPlaylist: { method: 'POST' },
             updatePlaylist: { method: 'PUT', params: { playlistId: '@id' } },
             getCount: { url: concatUrl('api/Playlist/getCount'), method: 'GET' },
-            getPaginated: { url: concatUrl('api/Playlist/getPaginated/:page'), params: { page: '@page' }, method: 'GET', isArray: true }
+            getPaginated: { url: concatUrl('api/Playlist/getPaginated/:page'), params: { page: '@page' }, method: 'GET', isArray: false }
         })
     }]);
