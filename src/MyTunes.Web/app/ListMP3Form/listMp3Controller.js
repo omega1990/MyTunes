@@ -15,6 +15,7 @@ application.controller("listMp3Controller",
             var pageSize = 10;
             var navButtonNumber = Math.ceil(count / pageSize);
 
+            $scope.navButtonNumber = [];
             for (var i = 0; i < navButtonNumber; i++) {
                 $scope.navButtonNumber.push({});
 

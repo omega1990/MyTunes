@@ -10,12 +10,14 @@
                             </legend>
 
                             <!-- Name -->
-                            <div class="form-group" show-errors>
+                            <div class="form-group">
                                 <label for="name">Name:</label>
                                 <div>
-                                    <input id="name" name="name" class="form-control" type="text" ng-model="playlist.Name" ng-required="true" ng-maxlength="50" />
-                                    <span class="help-block" ng-show="playlistForm.name.$error.required && playlistForm.name.$dirty">Name is required</span>
-                                    <span class="help-block" ng-show="playlistForm.name.$error.maxlength && playlistForm.name.$dirty">Name is too long</span>
+                                    <input id="name" name="name" class="form-control" type="text" ng-model="playlist.Name" ng-maxlength="50" required/>
+                                    <div class="error-messages" ng-if="interacted(playlistForm.name)" ng-messages="playlistForm.name.$error">
+                                        <div ng-message="required">Name is required. </div>
+                                        <div ng-message="maxlength">Your title is too long. </div>
+                                    </div>
                                 </div>
                             </div>
 

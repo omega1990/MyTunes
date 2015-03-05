@@ -10,7 +10,6 @@ application.controller("navController",
             }
         }
 
-
         $scope.search = function search() {
                 $rootScope.$broadcast('search-event', $scope.searchString);
         };

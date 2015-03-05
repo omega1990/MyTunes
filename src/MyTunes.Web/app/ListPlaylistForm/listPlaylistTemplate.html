@@ -31,15 +31,17 @@
 
 <!-- Pagination -->
 <nav>
-    <ul ng-hide="isSearchActivated" class="pagination">
-        <li>
-            <a href="#" aria-label="Previous">
+    <ul ng-hide="isSearchActivated || (!nextActive && !previousActive)" class="pagination">
+        <li ng-show="previousActive">
+            <a href="#/playlist/page/{{currentPageItem - 1}}" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
             </a>
         </li>
-        <li class="pagination-item" ng-repeat="button in navButtonNumber track by $index" ng-click="getPage($index)"><a ng-class="{'pagination-item-active': currentPlaylistPage == $index}">{{$index+1}}</a></li>
-        <li>
-            <a href="#" aria-label="Next">
+        <li class="pagination-item" ng-repeat="button in navButtonNumber track by $index" ng-click="routePage($index)">
+            <a ng-class="{'pagination-item-active': currentPlaylistPage == $index}">{{$index+1}}</a>
+        </li>
+        <li ng-show="nextActive">
+            <a href="#/playlist/page/{{currentPageItem + 1}}" aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
             </a>
         </li>

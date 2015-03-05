@@ -13,7 +13,7 @@ application.config(["$routeProvider", "$locationProvider",
             templateUrl: "app/ListMP3form/listMp3Template.html",
             controller: "listMp3Controller"
         })
-        .when("/playlist", {
+        .when("/playlist/page/:page", {
             templateUrl: "app/ListPlaylistForm/listPlaylistTemplate.html",
             controller: "listPlaylistController"
         })

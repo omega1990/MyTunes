@@ -50,7 +50,8 @@ application.controller("singlePlaylistController",
         }
 
 
-       
+        $scope.interacted = function (field) { return $scope.submitted || field.$dirty; };
+
 
         // Methods for adding and removing a song from the playlist
         $scope.addToPlaylist = function addToPlaylist(song) {
@@ -79,6 +80,8 @@ application.controller("singlePlaylistController",
 
         // Submit form data
         $scope.submitData = function submitData() {
+            $scope.submitted = true;
+
             if ($scope.playlistForm.$invalid)
                 return;
 
@@ -87,12 +90,12 @@ application.controller("singlePlaylistController",
                 .then(function() {
                     console.log("Playlist " + $scope.playlist.Name + " created succesfully");
                     $rootScope.success = "Playlist " + $scope.playlist.Name + " created successfully";
-                    $location.path("/playlist");
+                    $location.path("/playlist/page/1");
                 })
                 .catch(function(error){
                     console.log(error);
                     $rootScope.error = "Error while creating " + $scope.playlist.Name + " playlist";
-                    $location.path("/playlist");
+                    $location.path("/playlist/page/1");
                 });
             }
             else {
@@ -100,12 +103,12 @@ application.controller("singlePlaylistController",
                 .then(function() {
                     console.log("Playlist " + $scope.playlist.Name + " updated succesfully");
                     $rootScope.success = "Playlist " + $scope.playlist.Name + " updated successfully";
-                    $location.path("/playlist");
+                    $location.path("/playlist/page/1");
                 })
                 .catch(function(error){
                     console.log(error);
                     $rootScope.success = "Error while creating " + $scope.playlist.Name + " playlist";
-                    $location.path("/playlist");
+                    $location.path("/playlist/page/1");
                 });
             }
         }
