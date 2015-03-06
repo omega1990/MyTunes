@@ -37,6 +37,11 @@ namespace MyTunes.Web.Api.Controllers
             var playlistsToReturn = new List<PlaylistViewModel>();
             Mapper.Map(playlists, playlistsToReturn);
 
+            foreach (var playlist in playlists)
+            {
+                playlist.MP3 = null;
+            }
+
             return Ok(playlistsToReturn);
         }
 

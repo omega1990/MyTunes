@@ -30,11 +30,10 @@ namespace MyTunes.Data.Repositories
             this.dbSet = entities.Set<T>();
         }
        
-        public IList<T> GetAll()
+        public IQueryable<T> GetAll()
         {
-            return dbSet.ToList();
+            return dbSet.AsQueryable();
         }
-
         public T Get(Func<T, bool> predicate)
         {
             return dbSet.FirstOrDefault(predicate);

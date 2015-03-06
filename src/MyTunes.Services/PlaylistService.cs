@@ -24,7 +24,24 @@ namespace MyTunes.Services
 
         public IList<Playlist> GetAll()
         {
-            return _repository.GetAll();
+            var data = _repository.GetAll().ToList();
+
+              var filteredData = data.Select(x => new Playlist
+                    {
+                        PlaylistID = x.PlaylistID,
+                        Name = x.Name,
+                        MP3 = x.MP3.Select(y =>
+                            new MP3
+                            {
+                                MP3ID = y.MP3ID,
+                                Title = y.Title,
+                                Artist = y.Artist,
+                                Album = y.Album,
+                                Year = y.Year,
+                            }).ToList()
+                    }).ToList();
+
+            return filteredData;
         }
 
         public Playlist Get(int id)

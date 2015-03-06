@@ -25,12 +25,47 @@ namespace MyTunes.Services
 
         public IList<Data.EntityModel.MP3> GetAll()
         {
-            return _repository.GetAll();
+            var data = _repository.GetAll().ToList();
+            
+            var filteredData = data.Select(x => new MP3
+                    {
+                        MP3ID = x.MP3ID,
+                        Title = x.Title,
+                        Artist = x.Artist,
+                        Album = x.Album,
+                        Year = x.Year,
+                        Playlist = x.Playlist.Select(y =>
+                            new Playlist
+                            {
+                                PlaylistID = y.PlaylistID,
+                                Name = y.Name
+                            }).ToList()
+                    }).ToList();
+
+            return filteredData;
         }
+
 
         public MP3 Get(int id)
         {
-            return _repository.Get(x => x.MP3ID.Equals(id));
+            var data = _repository.Get(x => x.MP3ID.Equals(id));
+
+            var filteredData = new MP3
+            {
+                MP3ID = data.MP3ID,
+                Title = data.Title,
+                Artist = data.Artist,
+                Album = data.Album,
+                Year = data.Year,
+                Playlist = data.Playlist.Select(y =>
+                    new Playlist
+                    {
+                        PlaylistID = y.PlaylistID,
+                        Name = y.Name
+                    }).ToList()
+            };
+
+            return filteredData;
         }
 
         public IList<MP3> GetInPlaylist(int playlistID)
@@ -54,7 +89,7 @@ namespace MyTunes.Services
                 var mp3InPlaylist = new List<MP3>();
                 mp3InPlaylist.AddRange(playlist.MP3);
 
-                IList<MP3> mp3sNotInPlaylist = _repository.GetAll();
+                IList<MP3> mp3sNotInPlaylist = _repository.GetAll().ToList();
                 foreach (var mp3 in mp3InPlaylist)
                 {
                     mp3sNotInPlaylist.Remove(mp3);

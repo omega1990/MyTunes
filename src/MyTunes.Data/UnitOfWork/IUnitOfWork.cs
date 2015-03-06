@@ -14,8 +14,8 @@ namespace MyTunes.Data.UnitOfWork
 {
     public interface IUnitOfWork : IDisposable
     {
-        GenericRepository<MP3> Mp3Repository { get; }
-        GenericRepository<Playlist> PlaylistRepository { get; }
+        MP3Repository Mp3Repository { get; }
+        PlaylistRepository PlaylistRepository { get; }
 
         void Commit();
     }

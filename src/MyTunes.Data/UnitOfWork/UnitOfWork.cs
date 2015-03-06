@@ -22,28 +22,35 @@ namespace MyTunes.Data.UnitOfWork
     public class UnitOfWork : IUnitOfWork
     {
         //TODO: Transactions
-        private MyTunesEntities entities = new MyTunesEntities();
-        private GenericRepository<MP3> mp3Repository;
-        private GenericRepository<Playlist> playlistRepository;
+        private MyTunesEntities _entities;
+        private MP3Repository mp3Repository;
+        private PlaylistRepository playlistRepository;
 
-        public GenericRepository<MP3> Mp3Repository
+        public UnitOfWork()
+        {
+            _entities = new MyTunesEntities();
+            _entities.Configuration.LazyLoadingEnabled = false;
+            //_entities.Configuration.ProxyCreationEnabled = false;
+        }
+
+        public MP3Repository Mp3Repository
         {
             get
             {
                 if(this.mp3Repository == null)
                 {
-                    this.mp3Repository = new GenericRepository<MP3>(entities);
+                    this.mp3Repository = new MP3Repository(_entities);
                 }
                 return mp3Repository;
             }
         }
-        public GenericRepository<Playlist> PlaylistRepository
+        public PlaylistRepository PlaylistRepository
         {
             get
             {
                 if (this.playlistRepository == null)
                 {
-                    this.playlistRepository = new GenericRepository<Playlist>(entities);
+                    this.playlistRepository = new PlaylistRepository(_entities);
                 }
                 return playlistRepository;
             }
@@ -51,7 +58,7 @@ namespace MyTunes.Data.UnitOfWork
         
         public void Commit()
         {
-            entities.SaveChanges();
+            _entities.SaveChanges();
         }
 
         public void Dispose()
@@ -67,7 +74,7 @@ namespace MyTunes.Data.UnitOfWork
             {
                 if (disposing)
                 {
-                    entities.Dispose();
+                    _entities.Dispose();
                 }
             }
             this.disposed = true;

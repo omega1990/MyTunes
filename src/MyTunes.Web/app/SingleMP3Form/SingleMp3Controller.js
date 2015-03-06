@@ -16,7 +16,7 @@ application.controller("singleMp3Controller",
             })
             .catch(function (error) {
                 console.log(error);
-                $rootScope.error("Error occurred while retrieving song for editing.")
+                $rootScope.error = "Error occurred while retrieving song for editing.";
             });
         }
 
@@ -27,11 +27,10 @@ application.controller("singleMp3Controller",
         })
         .catch(function (error) {
             console.log(error);
-            $rootScope.error("Error while retrieving playlists.");
+            $rootScope.error = "Error while retrieving playlists";
         });
 
         $scope.checkSongInPlaylist = function checkSongInPlaylist(playlist) {
-
             for (var i = 0; i < $scope.mp3.Playlist.length; i++) {
                 if ($scope.mp3.Playlist[i].PlaylistID == playlist.PlaylistID) {
                     return true;

@@ -17,7 +17,8 @@ namespace MyTunes.Data.Repositories
 {
     public interface IRepository<T> : IDisposable
     {
-        IList<T> GetAll();
+        //IList<T> GetAll();
+        IQueryable<T> GetAll();
         T Get(Func<T, bool> predicate);
         void Create(T entity);
         void Update(T entity);
