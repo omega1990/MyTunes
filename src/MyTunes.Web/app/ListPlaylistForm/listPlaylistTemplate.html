@@ -5,7 +5,7 @@
     <th></th>
     </thead>
     <tbody>
-        <tr ng-repeat="playlist in playlists track by $index">
+        <tr ng-repeat="playlist in playlists | filter:{ Name: searchText} track by $index">
             <td class="col-md-11">
 
                 <playlist-data></playlist-data>
@@ -26,7 +26,7 @@
                 <button class="btn btn-default" ng-click="openEditPlaylistForm(playlist.PlaylistID)"><span class="glyphicon glyphicon-pencil"></span></button>
                 <button class="btn btn-danger" ng-click="deletePlaylist(playlist.PlaylistID)"><span class="glyphicon glyphicon-remove"></span></button>
             </td>
-    </tbody>
+</tbody>
 </table>
 
 <!-- Pagination -->

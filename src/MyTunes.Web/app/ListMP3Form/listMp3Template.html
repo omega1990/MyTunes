@@ -9,17 +9,15 @@
     <th></th>
     </thead>
     <tbody>
-        <tr ng-repeat="song in mp3s">
-            <td>{{song.Title}}</td>
-            <td>{{song.Artist}}</td>
-            <td>{{song.Album}}</td>
-            <td>{{song.Year}}</td>
+        <tr ng-repeat="song in mp3s | filter:searchText">
+            <td ng-bind-html="song.Title | highlight:searchText"></td>
+            <td ng-bind-html="song.Artist | highlight:searchText"></td>
+            <td ng-bind-html="song.Album | highlight:searchText"></td>
+            <td ng-bind-html="song.Album | highlight:year"></td>
             <td>
                 <table>
                     <tr ng-repeat="playlist in song.Playlist">
-                        <td>
-                            {{playlist.Name}}
-                        </td>
+                        <td ng-bind-html="playlist.Name| highlight:searchText"></td>
                     </tr>
                 </table>
             </td>

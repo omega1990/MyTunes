@@ -5,6 +5,7 @@ application.controller("listPlaylistController",
     function listPlaylistController($scope, $rootScope, $location, $route, $routeParams, $modal, playlistFactory) {
 
         $scope.isSearchActivated = false;
+        $scope.searchText = "";
 
         playlistFactory.getPaginated({ page: $routeParams.page - 1 }).$promise
         .then(function (data) {
@@ -69,14 +70,9 @@ application.controller("listPlaylistController",
         // React on the change inside the search textbox
         $scope.$on('search-event', function (event, searchQuery) {
             if (searchQuery != "") {
+                $scope.searchText = searchQuery;
                 $scope.isSearchActivated = true;
-                playlistFactory.getFilteredPlaylists({ searchQuery: searchQuery }).$promise
-                .then(function (data) {
-                    $scope.playlists = data;
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
+                console.log("setting seatchText to " + $scope.searchText);
             }
             else {
                 $scope.isSearchActivated = false;

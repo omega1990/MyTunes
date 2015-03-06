@@ -4,6 +4,7 @@ application.controller("listMp3Controller",
     function listMp3Controller($scope, $rootScope, $modal, $location, $route, $routeParams, mp3Factory) {
 
         $scope.isSearchActivated = false;
+        $scope.searchText = "";
       
         mp3Factory.getPaginated({ page: $routeParams.page - 1}).$promise
         .then(function(data) {
@@ -67,13 +68,7 @@ application.controller("listMp3Controller",
         $scope.$on('search-event', function (event, searchQuery) {
             if (searchQuery != "") {
                 $scope.isSearchActivated = true;
-                mp3Factory.getFilteredMp3s({ searchQuery: searchQuery }).$promise
-                .then(function (data) {
-                    $scope.mp3s = data;
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
+                $scope.searchText = searchQuery;
             }
             else {
                 $scope.isSearchActivated = false;

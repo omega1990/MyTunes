@@ -56,3 +56,7 @@
   border-color:transparent transparent maroon;
   border-width:5px;
 }
+
+.highlighted {
+    background-color: yellow;
+}
