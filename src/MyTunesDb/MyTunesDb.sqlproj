@@ -65,4 +65,12 @@
     <Build Include="Tables\MP3Playlist.sql" />
     <Build Include="Tables\Playlist.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Scripts\InsertMP3s.sql" />
+    <None Include="Scripts\InsertPlaylist.sql" />
+    <None Include="Scripts\InsertMP3Playlist.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="Scripts\Script.PostDeployment.sql" />
+  </ItemGroup>
 </Project>
